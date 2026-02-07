@@ -4,8 +4,8 @@ public class Medico extends Persona{
 
 	private String codigo;
 	private String especialidad;
-	private String horario;
-	public Medico(String nombre, int edad, char sexo,String codigo, String especialidad, String horario) {
+	private Paciente horario;
+	public Medico(String nombre, int edad, char sexo,String codigo, String especialidad, Paciente horario) {
 		super(nombre, edad,sexo);
 		this.codigo = codigo;
 		this.especialidad = especialidad;
@@ -23,10 +23,11 @@ public class Medico extends Persona{
 	public void setEspecialidad(String especialidad) {
 		this.especialidad = especialidad;
 	}
-	public String getHorario() {
+
+	public Paciente getHorario() {
 		return horario;
 	}
-	public void setHorario(String horario) {
+	public void setHorario(Paciente horario) {
 		this.horario = horario;
 	}
 	@Override
