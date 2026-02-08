@@ -15,7 +15,6 @@ import javax.swing.border.LineBorder;
 
 public class VentanaMedicos extends JFrame {
 
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public JButton btnConsultar;
 	public JTextField txtNombre;
@@ -29,6 +28,7 @@ public class VentanaMedicos extends JFrame {
 	public JButton btnLimpiar;
 	public JButton btnVolver;
 	public JButton btnModificar;
+
 
 	public VentanaMedicos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
