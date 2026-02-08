@@ -1,143 +1,124 @@
 package view;
 
-import javax.swing.*;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.FlowLayout;
+import java.awt.Color;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
-import java.awt.*;
 
 public class VentanaCitas extends JFrame {
 
-    private static final long serialVersionUID = 1L;
-    private JPanel contentPane;
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	public JButton btnAsignar;
+	public JComboBox comboBoxMedicos;
+	public JComboBox comboBoxPacientes;
+	public JComboBox comboBox;
+	public JButton btnConsultar;
+	public JButton btnEliminar;
+	public JTextArea textAreaConsulta;
 
-    // ===== BOTONES PUBLICOS =====
-    public JButton btnGuardar;
-    public JButton btnModificar;
-    public JButton btnEliminar;
-    public JButton btnLimpiar;
-    public JButton btnVolver;
+	public VentanaCitas() {
+		setBackground(Color.LIGHT_GRAY);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 788, 555);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(0, 102, 153));
+		panel.setBounds(10, 11, 266, 494);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		comboBoxPacientes = new JComboBox();
+		comboBoxPacientes.setBounds(10, 39, 234, 22);
+		panel.add(comboBoxPacientes);
+		
+		JLabel lblMedicos = new JLabel("Medicos Disponibles");
+		lblMedicos.setForeground(Color.WHITE);
+		lblMedicos.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblMedicos.setBounds(10, 21, 135, 14);
+		panel.add(lblMedicos);
+		
+		JLabel lblPacientes = new JLabel("Pacientes ");
+		lblPacientes.setForeground(Color.WHITE);
+		lblPacientes.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblPacientes.setBounds(10, 72, 135, 14);
+		panel.add(lblPacientes);
+		
+		comboBoxMedicos = new JComboBox();
+		comboBoxMedicos.setBounds(10, 97, 234, 22);
+		panel.add(comboBoxMedicos);
+		
+		btnAsignar = new JButton("Asignar");
+		btnAsignar.setBorder(null);
+		btnAsignar.setBackground(Color.WHITE);
+		btnAsignar.setForeground(new Color(0, 102, 153));
+		btnAsignar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAsignar.setBounds(52, 150, 135, 37);
+		panel.add(btnAsignar);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
+		panel_1.setBounds(286, 11, 476, 147);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		comboBox = new JComboBox();
+		comboBox.setBounds(10, 31, 376, 22);
+		panel_1.add(comboBox);
+		
+		JLabel lblCitas = new JLabel("Citas");
+		lblCitas.setForeground(new Color(0, 102, 153));
+		lblCitas.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblCitas.setBounds(10, 11, 135, 14);
+		panel_1.add(lblCitas);
+		
+		btnConsultar = new JButton("Consultar");
+		btnConsultar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnConsultar.setBorder(null);
+		btnConsultar.setBackground(new Color(0, 102, 153));
+		btnConsultar.setForeground(Color.WHITE);
+		btnConsultar.setBounds(10, 91, 135, 29);
+		panel_1.add(btnConsultar);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBorder(null);
+		btnEliminar.setBackground(new Color(0, 102, 153));
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnEliminar.setForeground(Color.WHITE);
+		btnEliminar.setBounds(251, 91, 135, 29);
+		panel_1.add(btnEliminar);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.WHITE);
+		panel_2.setBounds(286, 169, 476, 336);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+		
+		textAreaConsulta = new JTextArea();
+		textAreaConsulta.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		textAreaConsulta.setBounds(10, 11, 456, 314);
+		panel_2.add(textAreaConsulta);
 
-    // ===== CAMPOS PUBLICOS =====
-    public JTextField txtPaciente;
-    public JTextField txtIdentificacion;
-    public JTextField txtFecha;
-    public JTextField txtHora;
-    public JTextField txtMedico;
-    public JTextArea txtMotivo;
-
-    public VentanaCitas() {
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 850, 540);
-
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
-
-        // ================= PANEL BOTONES =================
-        JPanel panelBotones = new JPanel();
-        panelBotones.setBackground(new Color(0, 102, 153));
-        panelBotones.setBounds(10, 11, 225, 480);
-        panelBotones.setLayout(null);
-        contentPane.add(panelBotones);
-
-        btnGuardar = crearBoton("Guardar", 30);
-        panelBotones.add(btnGuardar);
-
-        btnModificar = crearBoton("Modificar", 95);
-        panelBotones.add(btnModificar);
-
-        btnEliminar = crearBoton("Eliminar", 160);
-        panelBotones.add(btnEliminar);
-
-        btnLimpiar = crearBoton("Limpiar", 225);
-        panelBotones.add(btnLimpiar);
-
-        btnVolver = crearBoton("Volver", 300);
-        panelBotones.add(btnVolver);
-
-        // ================= PANEL DATOS CITA =================
-        JPanel panelCita = new JPanel();
-        panelCita.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        panelCita.setBackground(Color.WHITE);
-        panelCita.setBounds(245, 11, 570, 480);
-        panelCita.setLayout(null);
-        contentPane.add(panelCita);
-
-        JLabel lblTitulo = new JLabel("Programar Cita Médica");
-        lblTitulo.setForeground(new Color(0, 102, 153));
-        lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblTitulo.setBounds(10, 10, 250, 25);
-        panelCita.add(lblTitulo);
-
-        JLabel lblPaciente = new JLabel("Nombre Paciente:");
-        lblPaciente.setBounds(10, 55, 120, 14);
-        panelCita.add(lblPaciente);
-
-        txtPaciente = new JTextField();
-        txtPaciente.setBounds(130, 52, 250, 20);
-        panelCita.add(txtPaciente);
-
-        JLabel lblId = new JLabel("Identificación:");
-        lblId.setBounds(10, 90, 120, 14);
-        panelCita.add(lblId);
-
-        txtIdentificacion = new JTextField();
-        txtIdentificacion.setBounds(130, 87, 250, 20);
-        panelCita.add(txtIdentificacion);
-
-        JLabel lblMedico = new JLabel("Médico:");
-        lblMedico.setBounds(10, 125, 120, 14);
-        panelCita.add(lblMedico);
-
-        txtMedico = new JTextField();
-        txtMedico.setBounds(130, 122, 250, 20);
-        panelCita.add(txtMedico);
-
-        JLabel lblFecha = new JLabel("Fecha (dd/mm/aaaa):");
-        lblFecha.setBounds(10, 160, 150, 14);
-        panelCita.add(lblFecha);
-
-        txtFecha = new JTextField();
-        txtFecha.setBounds(160, 157, 120, 20);
-        panelCita.add(txtFecha);
-
-        JLabel lblHora = new JLabel("Hora:");
-        lblHora.setBounds(300, 160, 50, 14);
-        panelCita.add(lblHora);
-
-        txtHora = new JTextField();
-        txtHora.setBounds(350, 157, 80, 20);
-        panelCita.add(txtHora);
-
-        JLabel lblMotivo = new JLabel("Motivo de la cita:");
-        lblMotivo.setBounds(10, 200, 120, 14);
-        panelCita.add(lblMotivo);
-
-        txtMotivo = new JTextArea();
-        txtMotivo.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        txtMotivo.setBounds(130, 200, 300, 180);
-        panelCita.add(txtMotivo);
-    }
-
-    // ================= ESTILO BOTON =================
-    private JButton crearBoton(String texto, int y) {
-        JButton btn = new JButton(texto);
-        btn.setBounds(30, y, 160, 40);
-        btn.setBackground(Color.WHITE);
-        btn.setForeground(new Color(0, 102, 153));
-        btn.setBorder(null);
-        return btn;
-    }
-
-    public void init() {
-        this.setVisible(true);
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-    }
-
-    public void close() {
-        this.setVisible(false);
-    }
+	}
+	public void init() {
+		this.setVisible(true);
+		this.setResizable(false);
+		this.setLocationRelativeTo(null);
+	}
+	public void close() {
+		this.setVisible(false);
+	}
 }

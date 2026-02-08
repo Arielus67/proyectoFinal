@@ -17,34 +17,16 @@ public class VentanaMedicos extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JButton btnConsultar;
-	private JTextField txtNombre;
-	private JTextField txtCodigo;
-	private JTextField txtSexo;
-	private JTextField txtEdad;
-	private JTextArea textArea;
-	private JButton btnEliminar;
-	private JButton btnAgregar;
+	public JButton btnConsultar;
+	public JTextField txtNombre;
+	public JTextField txtCodigo;
+	public JTextField txtSexo;
+	public JTextField txtEdad;
+	public JTextArea textArea;
+	public JButton btnEliminar;
+	public JButton btnAgregar;
+	public JButton btnVolver;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaMedicos frame = new VentanaMedicos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public VentanaMedicos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 766, 548);
@@ -84,7 +66,7 @@ public class VentanaMedicos extends JFrame {
 		btnEliminar.setBounds(25, 195, 158, 44);
 		panel.add(btnEliminar);
 		
-		JButton btnVolver = new JButton("Volver");
+		btnVolver = new JButton("Volver");
 		btnVolver.setForeground(new Color(0, 102, 153));
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnVolver.setBorder(null);
@@ -159,5 +141,13 @@ public class VentanaMedicos extends JFrame {
 		lblAquiApareceraLa.setBounds(10, 0, 286, 28);
 		panel_1_1.add(lblAquiApareceraLa);
 
+	}
+	public void init() {
+		this.setVisible(true);
+		this.setResizable(false);
+		this.setLocationRelativeTo(null);
+	}
+	public void close() {
+		this.setVisible(false);
 	}
 }
