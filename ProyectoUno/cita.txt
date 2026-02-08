@@ -1,0 +1,5 @@
+112;a;Enfermedad [nombreEnfermedad=213, gravedad=1];1234;Ariel;Neurocirujano
+112;a;Enfermedad [nombreEnfermedad=213, gravedad=1];1234;Ariel;Neurocirujano
+112;a;Enfermedad [nombreEnfermedad=213, gravedad=1];1234;Ariel;Neurocirujano
+112;a;Enfermedad [nombreEnfermedad=213, gravedad=1];1234;Ariel;Neurocirujano
+112;a;Enfermedad [nombreEnfermedad=213, gravedad=1];1234;Ariel;Neurocirujano
