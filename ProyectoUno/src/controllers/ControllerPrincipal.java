@@ -22,6 +22,12 @@ public class ControllerPrincipal {
             ControllerPacientes cp = new ControllerPacientes(this);
             cp.start();
         });
+        
+        vp.btnMedicos.addActionListener(e -> {
+            vp.close();
+            ControllerMedicos cm = new ControllerMedicos(this);
+            cm.start();
+        });
     }
 
     public void mostrarVentana() {

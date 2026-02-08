@@ -97,6 +97,7 @@ public class ControllerPacientes {
     	    JOptionPane.showMessageDialog(null, "Debes rellenar todos los espacios");
     	}
 	}
+	
 	private void eliminar() {
 
 		String identificacion = vp.txtIdentificacion.getText();
