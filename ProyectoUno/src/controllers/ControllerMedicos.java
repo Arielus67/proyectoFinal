@@ -56,7 +56,7 @@ public class ControllerMedicos {
 
     	    Medico m = new Medico(nombre, edad, sexo, codigo, especialidad);
 
-    	    lm.editarMedico(m);;
+    	    lm.agregarMedico(m);
     	    limpiarCampos();
 
     	} else {
