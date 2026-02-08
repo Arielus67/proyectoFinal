@@ -21,7 +21,7 @@ public class VentanaCitas extends JFrame {
 	public JButton btnAsignar;
 	public JComboBox comboBoxMedicos;
 	public JComboBox comboBoxPacientes;
-	public JComboBox comboBox;
+	public JComboBox comboBoxCitas;
 	public JButton btnConsultar;
 	public JButton btnEliminar;
 	public JTextArea textAreaConsulta;
@@ -75,9 +75,9 @@ public class VentanaCitas extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		comboBox = new JComboBox();
-		comboBox.setBounds(10, 31, 376, 22);
-		panel_1.add(comboBox);
+		comboBoxCitas = new JComboBox();
+		comboBoxCitas.setBounds(10, 31, 376, 22);
+		panel_1.add(comboBoxCitas);
 		
 		JLabel lblCitas = new JLabel("Citas");
 		lblCitas.setForeground(new Color(0, 102, 153));

@@ -100,5 +100,5 @@ public class ListaPacientes {
 			System.out.println("Error al editar paciente.");
 		}
 	}
-
+	
 }
