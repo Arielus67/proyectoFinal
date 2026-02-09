@@ -18,32 +18,35 @@ public class ControllerCitas {
     private ListaMedicos lm;
     private ControllerPrincipal controllerPrincipal;
 
-    public ControllerCitas() {
+
+    public ControllerCitas(ControllerPrincipal controllerPrincipal) {
         this.controllerPrincipal = controllerPrincipal;
         this.vc = new VentanaCitas();
         this.lc = new ListaCitas();
         this.lp = new ListaPacientes();
         this.lm = new ListaMedicos();
     }
-	public void start() {
-		loadPaciente();
-		loadMedicos();
-		vc.init();
-		funtions();
-		
-	}
-	public void funtions() {
-		
-		vc.btnAsignar.addActionListener(e->{
-			crearCita();
-			loadPaciente();
-			loadMedicos();
-			loadCitas();
-			
-		});
 
-	}
-	private void crearCita() {
+
+    public void start() {
+        cargarPacientes();
+        cargarMedicos();
+        cargarCitas();
+        vc.init();
+        functions();
+    }
+
+    private void functions() {
+
+        vc.btnAsignar.addActionListener(e -> crearCita());
+
+        vc.btnVolver.addActionListener(e -> {
+            vc.close();
+            controllerPrincipal.mostrarVentana();
+        });
+    }
+
+    private void crearCita() {
 
         int indexPaciente = vc.comboBoxPacientes.getSelectedIndex();
         int indexMedico = vc.comboBoxMedicos.getSelectedIndex();
@@ -53,35 +56,52 @@ public class ControllerCitas {
             return;
         }
 
-        Paciente paciente = lc.obtenerPacientes().get(indexPaciente);
-        Medico medico = lc.obtenerMedicos().get(indexMedico);
+        Paciente paciente = lp.obtenerPacientes().get(indexPaciente);
+        Medico medico = lm.obtenerMedicos().get(indexMedico);
 
         Cita cita = new Cita(paciente, medico);
-
         lc.agregarCita(cita);
 
         JOptionPane.showMessageDialog(null, "Cita asignada correctamente");
+
+        cargarCitas();
     }
-	public void loadPaciente() {
-		
-		 for (Paciente p : lc.obtenerPacientes()) {
-		        vc.comboBoxPacientes.addItem(p.getIdentificacion()+" - "+p.getNombre() + " - " + p.getEnfermedad().getNombreEnfermedad());
-		    }
-	}
-	public void loadMedicos() {
-		
-		for(Medico m : lc.obtenerMedicos()) {
-			vc.comboBoxMedicos.addItem(m.getCodigo()+"-"+m.getNombre()+"-"+m.getEspecialidad());
-		}
-	}
-	public void loadCitas() {
-		
-		for(Cita c : lc.obtenerCitas()) {
-			vc.comboBoxCitas.addItem(c.getPaciente()+"-"+c.getPaciente());
-		}
-	}
-	public static void main(String[] args) {
-		ControllerCitas p = new ControllerCitas();
-		p.start();
-	}
+
+    private void cargarPacientes() {
+
+        vc.comboBoxPacientes.removeAllItems();
+
+        for (Paciente p : lp.obtenerPacientes()) {
+            vc.comboBoxPacientes.addItem(
+                p.getIdentificacion() + " - " +
+                p.getNombre() + " - " +
+                p.getEnfermedad().getNombreEnfermedad()
+            );
+        }
+    }
+
+    private void cargarMedicos() {
+
+        vc.comboBoxMedicos.removeAllItems();
+
+        for (Medico m : lm.obtenerMedicos()) {
+            vc.comboBoxMedicos.addItem(
+                m.getCodigo() + " - " +
+                m.getNombre() + " - " +
+                m.getEspecialidad()
+            );
+        }
+    }
+
+    private void cargarCitas() {
+
+        vc.comboBoxCitas.removeAllItems();
+
+        for (Cita c : lc.obtenerCitas()) {
+            vc.comboBoxCitas.addItem(
+                c.getPaciente().getNombre() + " - " +
+                c.getMedico().getNombre()
+            );
+        }
+    }
 }

@@ -28,6 +28,11 @@ public class ControllerPrincipal {
             ControllerMedicos cm = new ControllerMedicos(this);
             cm.start();
         });
+        vp.btnCitas.addActionListener(e->{
+        	vp.close();
+        	ControllerCitas cc = new ControllerCitas(this);
+        	cc.start();
+        });
     }
 
     public void mostrarVentana() {

@@ -1,6 +1,7 @@
 package models;
 
 import java.io.*;
+import java.util.ArrayList;
 public class ListaMedicos {
 
 	public boolean agregarMedico(Medico medico) {
@@ -133,6 +134,44 @@ public class ListaMedicos {
 		}
 
 		return null;
+	}
+
+	public ArrayList<Medico> obtenerMedicos() {
+
+	    ArrayList<Medico> lista = new ArrayList<>();
+	    File archivo = new File("medicos.txt");
+
+	    if (!archivo.exists()) {
+	        return lista;
+	    }
+
+	    try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+
+	        String linea;
+
+	        while ((linea = br.readLine()) != null) {
+
+	            String[] datos = linea.split(";");
+
+	            if (datos.length < 5) continue;
+
+	            Medico m = new Medico(
+	                datos[1],                       // nombre
+	                Integer.parseInt(datos[2]),     // edad
+	                datos[3].charAt(0),             // sexo
+	                datos[0],                       // codigo
+	                datos[4]                        // especialidad
+	            );
+
+	            lista.add(m);
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Error al leer médicos.");
+	        e.printStackTrace();
+	    }
+
+	    return lista;
 	}
 
 }

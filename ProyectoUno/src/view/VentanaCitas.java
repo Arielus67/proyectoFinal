@@ -25,6 +25,7 @@ public class VentanaCitas extends JFrame {
 	public JButton btnConsultar;
 	public JButton btnEliminar;
 	public JTextArea textAreaConsulta;
+	public JButton btnVolver;
 
 	public VentanaCitas() {
 		setBackground(Color.LIGHT_GRAY);
@@ -68,6 +69,14 @@ public class VentanaCitas extends JFrame {
 		btnAsignar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAsignar.setBounds(52, 150, 135, 37);
 		panel.add(btnAsignar);
+		
+		btnVolver = new JButton("Volver");
+		btnVolver.setForeground(new Color(0, 102, 153));
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVolver.setBorder(null);
+		btnVolver.setBackground(Color.WHITE);
+		btnVolver.setBounds(70, 418, 135, 37);
+		panel.add(btnVolver);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);

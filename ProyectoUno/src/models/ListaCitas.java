@@ -2,154 +2,104 @@ package models;
 
 import java.io.*;
 import java.util.ArrayList;
-;
 
 public class ListaCitas {
 
-	public boolean agregarCita(Cita cita) {
+    private final String ARCHIVO = "citas.txt";
 
-		try {
-			File archivo = new File("cita.txt");
+    
+    public boolean agregarCita(Cita cita) {
 
-			if (!archivo.exists()) {
-				archivo.createNewFile();
-			}
+        try {
+            File archivo = new File(ARCHIVO);
 
-			BufferedWriter escritor = new BufferedWriter(new FileWriter(archivo, true));
-			escritor.write(cita.getPaciente().getIdentificacion() + ";" + cita.getPaciente().getNombre()+";" + cita.getPaciente().getEnfermedad() + ";" +cita.getMedico().getCodigo() +  ";" + cita.getMedico().getNombre() + ";"
-					+ cita.getMedico().getEspecialidad());
-			escritor.newLine();
-			escritor.close();
-			return true;
+            if (!archivo.exists()) {
+                archivo.createNewFile();
+            }
 
-		} catch (IOException e) {
-			System.out.println("Error al guardar el paciente.");
-		}
-		return false;
-	}
-	public ArrayList<Paciente> obtenerPacientes() {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, true));
 
-	    ArrayList<Paciente> lista = new ArrayList<>();
-	    File archivo = new File("pacientes.txt");
+            Paciente p = cita.getPaciente();
+            Medico m = cita.getMedico();
 
-	    try {
-	        BufferedReader br = new BufferedReader(new FileReader(archivo));
-	        String linea;
+            bw.write(
+                p.getIdentificacion() + ";" +
+                p.getNombre() + ";" +
+                p.getEdad() + ";" +
+                p.getSexo() + ";" +
+                p.getContacto() + ";" +
+                p.getEnfermedad().getNombreEnfermedad() + ";" +
+                p.getEnfermedad().getGravedad() + ";" +
+                m.getNombre() + ";" +
+                m.getEdad() + ";" +
+                m.getSexo() + ";" +
+                m.getCodigo() + ";" +
+                m.getEspecialidad()
+            );
 
-	        while ((linea = br.readLine()) != null) {
+            bw.newLine();
+            bw.close();
+            return true;
 
-	            String[] datos = linea.split(";");
-
-	            Enfermedad en = new Enfermedad(
-	                    datos[5],
-	                    Integer.parseInt(datos[6])
-	            );
-
-	            Paciente p = new Paciente(
-	                    datos[1],
-	                    Integer.parseInt(datos[2]),
-	                    datos[3].charAt(0),
-	                    datos[0],
-	                    datos[4],
-	                    en
-	            );
-
-	            lista.add(p);
-	        }
-
-	        br.close();
-
-	    } catch (IOException e) {
-	        System.out.println("Error al leer pacientes.");
-	    }
-
-	    return lista;
-	}
-	public ArrayList<Medico> obtenerMedicos() {
-
-	    ArrayList<Medico> lista = new ArrayList<>();
-	    File archivo = new File("medicos.txt");
-
-	    try {
-	        BufferedReader br = new BufferedReader(new FileReader(archivo));
-	        String linea;
-
-	        while ((linea = br.readLine()) != null) {
-
-	            String[] datos = linea.split(";");
+        } catch (IOException e) {
+            System.out.println("Error al guardar la cita.");
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 
-	            Medico m = new Medico(
-	                    datos[1],
-	                    Integer.parseInt(datos[2]),
-	                    datos[3].charAt(0),
-	                    datos[0],
-	                    datos[4]
-	                    
-	            );
+    public ArrayList<Cita> obtenerCitas() {
 
-	            lista.add(m);
-	        }
+        ArrayList<Cita> lista = new ArrayList<>();
+        File archivo = new File(ARCHIVO);
 
-	        br.close();
+        if (!archivo.exists()) {
+            return lista;
+        }
 
-	    } catch (IOException e) {
-	        System.out.println("Error al leer medicos.");
-	    }
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
 
-	    return lista;
-	}	
-	public ArrayList<Cita> obtenerCitas() {
+            String linea;
 
-	    ArrayList<Cita> lista = new ArrayList<>();
-	    File archivo = new File("Citas.txt");
+            while ((linea = br.readLine()) != null) {
 
-	    try {
-	        BufferedReader br = new BufferedReader(new FileReader(archivo));
-	        String linea;
+                String[] d = linea.split(";");
 
-	        while ((linea = br.readLine()) != null) {
+                
+                if (d.length < 12) continue;
 
-	            String[] datos = linea.split(";");
+                Enfermedad en = new Enfermedad(
+                    d[5],
+                    Integer.parseInt(d[6])
+                );
 
-	            // ===== ENFERMEDAD =====
-	            Enfermedad en = new Enfermedad(
-	                datos[5],
-	                Integer.parseInt(datos[6])
-	            );
+                Paciente p = new Paciente(
+                    d[1],
+                    Integer.parseInt(d[2]),
+                    d[3].charAt(0),
+                    d[0],
+                    d[4],
+                    en
+                );
 
-	            // ===== PACIENTE =====
-	            Paciente p = new Paciente(
-	                datos[1],                       // nombre
-	                Integer.parseInt(datos[2]),     // edad
-	                datos[3].charAt(0),             // sexo
-	                datos[0],                       // identificacion
-	                datos[4],                       // contacto
-	                en
-	            );
+                Medico m = new Medico(
+                    d[7],
+                    Integer.parseInt(d[8]),
+                    d[9].charAt(0),
+                    d[10],
+                    d[11]
+                );
 
-	            // ===== MEDICO =====
-	            Medico m = new Medico(
-	                datos[7],                       // nombre
-	                Integer.parseInt(datos[8]),     // edad
-	                datos[9].charAt(0),             // sexo
-	                datos[10],                      // codigo
-	                datos[11]                       // especialidad
-	            );
+                Cita c = new Cita(p, m);
+                lista.add(c);
+            }
 
-	            // ===== CITA =====
-	            Cita c = new Cita(p, m);
-	            lista.add(c);
-	        }
+        } catch (Exception e) {
+            System.out.println("Error al leer citas.");
+            e.printStackTrace();
+        }
 
-	        br.close();
-
-	    } catch (IOException e) {
-	        System.out.println("Error al leer citas.");
-	    }
-
-	    return lista;
-	}
-
-
+        return lista;
+    }
 }

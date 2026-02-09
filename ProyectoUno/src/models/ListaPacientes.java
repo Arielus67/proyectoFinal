@@ -1,6 +1,7 @@
 package models;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class ListaPacientes {
 
@@ -141,6 +142,50 @@ public class ListaPacientes {
 		}
 
 		return null;
+	}
+
+	public ArrayList<Paciente> obtenerPacientes() {
+
+	    ArrayList<Paciente> lista = new ArrayList<>();
+	    File archivo = new File("pacientes.txt");
+
+	    if (!archivo.exists()) {
+	        return lista;
+	    }
+
+	    try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+
+	        String linea;
+
+	        while ((linea = br.readLine()) != null) {
+
+	            String[] datos = linea.split(";");
+
+	            if (datos.length < 7) continue;
+
+	            Enfermedad en = new Enfermedad(
+	                datos[5],
+	                Integer.parseInt(datos[6])
+	            );
+
+	            Paciente p = new Paciente(
+	                datos[1],                       // nombre
+	                Integer.parseInt(datos[2]),     // edad
+	                datos[3].charAt(0),             // sexo
+	                datos[0],                       // identificacion
+	                datos[4],                       // contacto
+	                en
+	            );
+
+	            lista.add(p);
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Error al leer pacientes.");
+	        e.printStackTrace();
+	    }
+
+	    return lista;
 	}
 
 }
