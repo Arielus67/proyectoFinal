@@ -37,6 +37,8 @@ public class ControllerPacientes {
             controllerPrincipal.mostrarVentana();
         });
         vp.btnEliminar.addActionListener(e-> eliminar());
+        
+        vp.btnConsultar.addActionListener(e-> consultar());
     }
 
 	private void create() {
@@ -110,6 +112,34 @@ public class ControllerPacientes {
 			JOptionPane.showMessageDialog(null, "Debes rellenar el espacio");
 		}
 	}
+	
+	private void consultar() {
+
+		String identificacion = vp.txtIdentificacion.getText();
+
+		if (!identificacion.isEmpty()) {
+
+			Paciente p = lp.buscarPaciente(identificacion);
+
+			if (p != null) {
+
+				vp.txtNombre.setText(p.getNombre());
+				vp.txtEdad.setText(String.valueOf(p.getEdad()));
+				vp.txtSexo.setText(String.valueOf(p.getSexo()));
+				vp.txtContacto.setText(p.getContacto());
+				vp.txtAreaEnfermedad.setText(p.getEnfermedad().getNombreEnfermedad());
+				vp.comboBox.setSelectedItem(p.getEnfermedad().getGravedad());
+
+			} else {
+				JOptionPane.showMessageDialog(null, "Paciente no encontrado");
+			}
+
+		} else {
+			JOptionPane.showMessageDialog(null, "Debes ingresar la identificación");
+		}
+	}
+
+
 
 	private void limpiarCampos() {
 		vp.txtNombre.setText("");

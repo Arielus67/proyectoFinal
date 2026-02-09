@@ -101,4 +101,46 @@ public class ListaPacientes {
 		}
 	}
 	
+	public Paciente buscarPaciente(String identificacion) {
+
+		File archivo = new File("pacientes.txt");
+
+		try {
+			if (!archivo.exists()) {
+				return null;
+			}
+
+			BufferedReader br = new BufferedReader(new FileReader(archivo));
+			String linea;
+
+			while ((linea = br.readLine()) != null) {
+
+				String[] datos = linea.split(";");
+
+				if (datos[0].equals(identificacion)) {
+
+					String nombre = datos[1];
+					int edad = Integer.parseInt(datos[2]);
+					char sexo = datos[3].charAt(0);
+					String contacto = datos[4];
+					String nombreEnfermedad = datos[5];
+					int gravedad = Integer.parseInt(datos[6]);
+
+					Enfermedad en = new Enfermedad(nombreEnfermedad, gravedad);
+					Paciente p = new Paciente(nombre, edad, sexo, identificacion, contacto, en);
+
+					br.close();
+					return p;
+				}
+			}
+
+			br.close();
+
+		} catch (IOException e) {
+			System.out.println("Error al buscar paciente.");
+		}
+
+		return null;
+	}
+
 }

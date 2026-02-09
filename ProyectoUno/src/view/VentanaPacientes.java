@@ -31,6 +31,7 @@ public class VentanaPacientes extends JFrame {
 	public JTextArea txtAreaEnfermedad;
 	public JComboBox comboBox;
 	public JTextField txtSexo;
+	public JButton btnConsultar;
 
 	public VentanaPacientes() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,8 +80,15 @@ public class VentanaPacientes extends JFrame {
 		btnVolver.setForeground(new Color(0, 102, 153));
 		btnVolver.setBorder(null);
 		btnVolver.setBackground(Color.WHITE);
-		btnVolver.setBounds(30, 314, 136, 38);
+		btnVolver.setBounds(30, 374, 136, 38);
 		panel.add(btnVolver);
+		
+		btnConsultar = new JButton("Consultar");
+		btnConsultar.setForeground(new Color(0, 102, 153));
+		btnConsultar.setBorder(null);
+		btnConsultar.setBackground(Color.WHITE);
+		btnConsultar.setBounds(30, 307, 136, 38);
+		panel.add(btnConsultar);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(Color.LIGHT_GRAY));

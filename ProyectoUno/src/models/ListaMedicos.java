@@ -28,7 +28,7 @@ public class ListaMedicos {
 	public void eliminarMedico(String codigo) {
 
 		File archivo = new File("medicos.txt");
-		File archivoTemp = new File("medico_temp.txt");
+		File archivoTemp = new File("medicos_temp.txt");
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(archivo));
@@ -96,4 +96,43 @@ public class ListaMedicos {
 			System.out.println("Error al editar medico.");
 		}
 	}
+	
+	public Medico buscarMedico(String codigo) {
+
+		File archivo = new File("medicos.txt");
+
+		try {
+			if (!archivo.exists()) {
+				return null;
+			}
+
+			BufferedReader br = new BufferedReader(new FileReader(archivo));
+			String linea;
+
+			while ((linea = br.readLine()) != null) {
+
+				String[] datos = linea.split(";");
+
+				if (datos[0].equals(codigo)) {
+
+					String nombre = datos[1];
+					int edad = Integer.parseInt(datos[2]);
+					char sexo = datos[3].charAt(0);
+					String especialidad = datos[4];
+
+					Medico m = new Medico(nombre, edad, sexo, codigo, especialidad);
+					br.close();
+					return m;
+				}
+			}
+
+			br.close();
+
+		} catch (IOException e) {
+			System.out.println("Error al buscar medico.");
+		}
+
+		return null;
+	}
+
 }
