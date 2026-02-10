@@ -22,23 +22,39 @@ public class ControllerMedicos {
 	public void start() {
 		vm.init();
 		funciones();
+		cargarTabla();
 	}
 	
 	private void funciones() {
 
-        vm.btnAgregar.addActionListener(e -> create());
+        vm.btnAgregar.addActionListener(e -> {
+        	create();
+        	cargarTabla();
+        });
 
-        vm.btnLimpiar.addActionListener(e -> limpiarCampos());
+        vm.btnLimpiar.addActionListener(e -> {
+        	limpiarCampos();
+        	cargarTabla();
+        });
         
-        vm.btnModificar.addActionListener(e -> editar());
+        vm.btnModificar.addActionListener(e -> {
+        	editar();
+        	cargarTabla();
+        });
         
         vm.btnVolver.addActionListener(e -> {
             vm.close();
             controllerPrincipal.mostrarVentana();
         });
-        vm.btnEliminar.addActionListener(e-> eliminar());
+        vm.btnEliminar.addActionListener(e-> {
+        	eliminar();
+        	cargarTabla();
+        });
         
-        vm.btnConsultar.addActionListener(e-> consultar());
+        vm.btnConsultar.addActionListener(e-> {
+        	consultar();
+        	cargarTabla();
+        });
     }
 	
 	private void create() {
@@ -185,6 +201,11 @@ public class ControllerMedicos {
 			JOptionPane.showMessageDialog(null, "Debes ingresar el código");
 		}
 	}
+	
+	private void cargarTabla() {
+		vm.modelo.setDataVector(lm.getDatosMedicos(), lm.getColumnsMedicos());
+	}
+
 
 	
 	private void limpiarCampos() {

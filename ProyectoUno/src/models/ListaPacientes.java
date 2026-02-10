@@ -188,4 +188,54 @@ public class ListaPacientes {
 	    return lista;
 	}
 
+	public String[] getColumnsPacinetes() {
+		return new String[] {"Nombre","Edad","Sexo","Identificacion","Contacto","Enfermedad","Gravedad"};
+	}
+	
+	public Object[][] getDatosPacientes() {
+
+		File archivo = new File("pacientes.txt");
+
+		if (!archivo.exists()) {
+			return new Object[0][getColumnsPacinetes().length];
+		}
+
+		int filas = 0;
+
+		try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+			while (br.readLine() != null) {
+				filas++;
+			}
+		} catch (IOException e) {
+			System.out.println("Error al contar pacientes");
+		}
+
+		Object[][] data = new Object[filas][getColumnsPacinetes().length];
+
+		try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+
+			String linea;
+			int i = 0;
+
+			while ((linea = br.readLine()) != null) {
+
+				String[] datos = linea.split(";");
+
+				data[i][0] = datos[1]; // Nombre
+				data[i][1] = Integer.parseInt(datos[2]); // Edad
+				data[i][2] = datos[3]; // Sexo
+				data[i][3] = datos[0]; // Identificacion
+				data[i][4] = datos[4]; // Contacto
+				data[i][5] = datos[5]; // Enfermedad
+				data[i][6] = Integer.parseInt(datos[6]); // Gravedad
+
+				i++;
+			}
+
+		} catch (IOException e) {
+			System.out.println("Error al leer pacientes");
+		}
+
+		return data;
+	}
 }

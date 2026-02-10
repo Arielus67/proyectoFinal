@@ -5,13 +5,22 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.ScrollPane;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class VentanaMedicos extends JFrame {
 
@@ -21,13 +30,15 @@ public class VentanaMedicos extends JFrame {
 	public JTextField txtCodigo;
 	public JTextField txtSexo;
 	public JTextField txtEdad;
-	public JTextArea textArea;
 	public JButton btnEliminar;
 	public JButton btnAgregar;
 	public JTextField txtEspecialidad;
 	public JButton btnLimpiar;
 	public JButton btnVolver;
 	public JButton btnModificar;
+	public JTable table;
+	public DefaultTableModel modelo;
+
 
 
 	public VentanaMedicos() {
@@ -152,23 +163,15 @@ public class VentanaMedicos extends JFrame {
 		panel_1.add(txtEspecialidad);
 
 		JPanel panel_1_1 = new JPanel();
-		panel_1_1.setBorder(null);
-		panel_1_1.setBackground(Color.WHITE);
-		panel_1_1.setBounds(235, 201, 504, 297);
-		contentPane.add(panel_1_1);
-		panel_1_1.setLayout(null);
+		panel_1_1.setBackground(Color.LIGHT_GRAY);
+		panel_1_1.setBounds(235, 201, 504, 297); 
+		contentPane.add(panel_1_1);              
 
-		textArea = new JTextArea();
-		textArea.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		textArea.setBounds(10, 32, 484, 254);
-		panel_1_1.add(textArea);
+		modelo = new DefaultTableModel();
+		table = new JTable(modelo);
+		JScrollPane scroll = new JScrollPane(table);
 
-		JLabel lblAquiApareceraLa = new JLabel("Aqui aparecera la informacion del medico");
-		lblAquiApareceraLa.setForeground(new Color(0, 102, 153));
-		lblAquiApareceraLa.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblAquiApareceraLa.setBounds(10, 0, 286, 28);
-		panel_1_1.add(lblAquiApareceraLa);
-
+		panel_1_1.add(scroll, BorderLayout.CENTER);
 	}
 
 	public void init() {

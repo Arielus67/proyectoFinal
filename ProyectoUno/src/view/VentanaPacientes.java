@@ -5,12 +5,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
@@ -32,6 +37,8 @@ public class VentanaPacientes extends JFrame {
 	public JComboBox comboBox;
 	public JTextField txtSexo;
 	public JButton btnConsultar;
+	public JTable table;
+	public DefaultTableModel modelo;
 
 	public VentanaPacientes() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,7 +119,7 @@ public class VentanaPacientes extends JFrame {
 		panel_1.add(lblNewLabel_1_1);
 
 		JLabel lblNewLabel_1_2 = new JLabel("Edad:");
-		lblNewLabel_1_2.setBounds(342, 50, 63, 14);
+		lblNewLabel_1_2.setBounds(333, 50, 63, 14);
 		panel_1.add(lblNewLabel_1_2);
 
 		JLabel lblNewLabel_1_3 = new JLabel("Sexo:");
@@ -131,73 +138,69 @@ public class VentanaPacientes extends JFrame {
 
 		txtEdad = new JTextField();
 		txtEdad.setColumns(10);
-		txtEdad.setBounds(375, 47, 126, 20);
+		txtEdad.setBounds(375, 48, 126, 20);
 		panel_1.add(txtEdad);
 
 		txtSexo = new JTextField();
 		txtSexo.setBounds(93, 113, 92, 20);
 		panel_1.add(txtSexo);
 		txtSexo.setColumns(10);
+		
+				JLabel lblNewLabel_2 = new JLabel("Contacto:");
+				lblNewLabel_2.setBounds(214, 114, 68, 19);
+				panel_1.add(lblNewLabel_2);
+				
+						txtContacto = new JTextField();
+						txtContacto.setBounds(281, 114, 220, 20);
+						panel_1.add(txtContacto);
+						txtContacto.setColumns(10);
 
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		panel_1_1.setBackground(Color.WHITE);
-		panel_1_1.setBounds(245, 167, 560, 152);
+		panel_1_1.setBounds(245, 167, 560, 81);
 		contentPane.add(panel_1_1);
 		panel_1_1.setLayout(null);
-
-		JLabel lblInformacionDeContacto = new JLabel("Informacion de Contacto");
-		lblInformacionDeContacto.setForeground(new Color(0, 102, 153));
-		lblInformacionDeContacto.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblInformacionDeContacto.setBounds(10, 0, 175, 28);
-		panel_1_1.add(lblInformacionDeContacto);
-
-		JLabel lblNewLabel_2 = new JLabel("Contacto:");
-		lblNewLabel_2.setBounds(10, 69, 68, 19);
-		panel_1_1.add(lblNewLabel_2);
-
-		txtContacto = new JTextField();
-		txtContacto.setBounds(72, 68, 428, 20);
-		panel_1_1.add(txtContacto);
-		txtContacto.setColumns(10);
+		
+				JLabel lblCuasaDeVisita = new JLabel("Cuasa de Visita");
+				lblCuasaDeVisita.setBounds(10, 0, 175, 28);
+				panel_1_1.add(lblCuasaDeVisita);
+				lblCuasaDeVisita.setForeground(new Color(0, 102, 153));
+				lblCuasaDeVisita.setFont(new Font("Tahoma", Font.BOLD, 13));
+				
+						JLabel lblNewLabel_3 = new JLabel("Enfermedad:");
+						lblNewLabel_3.setBounds(20, 33, 78, 14);
+						panel_1_1.add(lblNewLabel_3);
+						
+								txtAreaEnfermedad = new JTextArea();
+								txtAreaEnfermedad.setBounds(92, 29, 138, 42);
+								panel_1_1.add(txtAreaEnfermedad);
+								txtAreaEnfermedad.setBorder(new LineBorder(Color.LIGHT_GRAY));
+								
+										JLabel lblNewLabel_4 = new JLabel("Gravedad:");
+										lblNewLabel_4.setBounds(242, 33, 63, 14);
+										panel_1_1.add(lblNewLabel_4);
+										
+												comboBox = new JComboBox();
+												comboBox.setBounds(316, 31, 78, 18);
+												panel_1_1.add(comboBox);
+												
+														comboBox.addItem(1);
+														comboBox.addItem(2);
+														comboBox.addItem(3);
+														comboBox.addItem(4);
+														comboBox.addItem(5);
 
 		JPanel panel_1_2 = new JPanel();
-		panel_1_2.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		panel_1_2.setBackground(Color.WHITE);
-		panel_1_2.setBounds(245, 326, 560, 152);
+		panel_1_2.setBackground(Color.LIGHT_GRAY);
+		panel_1_2.setBounds(245, 258, 560, 210);
 		contentPane.add(panel_1_2);
-		panel_1_2.setLayout(null);
 
-		JLabel lblCuasaDeVisita = new JLabel("Cuasa de Visita");
-		lblCuasaDeVisita.setForeground(new Color(0, 102, 153));
-		lblCuasaDeVisita.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCuasaDeVisita.setBounds(10, 0, 175, 28);
-		panel_1_2.add(lblCuasaDeVisita);
+		modelo = new DefaultTableModel();
+		table = new JTable(modelo);
+		JScrollPane scroll = new JScrollPane(table);
 
-		JLabel lblNewLabel_3 = new JLabel("Enfermedad:");
-		lblNewLabel_3.setBounds(10, 39, 78, 14);
-		panel_1_2.add(lblNewLabel_3);
-
-		txtAreaEnfermedad = new JTextArea();
-		txtAreaEnfermedad.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		txtAreaEnfermedad.setBounds(101, 39, 211, 107);
-		panel_1_2.add(txtAreaEnfermedad);
-
-		JLabel lblNewLabel_4 = new JLabel("Gravedad:");
-		lblNewLabel_4.setBounds(348, 39, 63, 14);
-		panel_1_2.add(lblNewLabel_4);
-
-		comboBox = new JComboBox();
-		comboBox.setBounds(438, 37, 78, 18);
-
-		comboBox.addItem(1);
-		comboBox.addItem(2);
-		comboBox.addItem(3);
-		comboBox.addItem(4);
-		comboBox.addItem(5);
-
-		panel_1_2.add(comboBox);
-
+		panel_1_2.add(scroll, BorderLayout.CENTER);
 	}
 
 	public void init() {

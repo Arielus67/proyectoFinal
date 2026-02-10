@@ -22,23 +22,39 @@ public class ControllerPacientes {
 	public void start() {
 		vp.init();
 		funciones();
+		cargarTabla();
 	}
 
 	private void funciones() {
 
-        vp.btnGuardar.addActionListener(e -> create());
+        vp.btnGuardar.addActionListener(e -> {
+        	create();
+        	cargarTabla();
+        });
 
-        vp.btnLimpiar.addActionListener(e -> limpiarCampos());
+        vp.btnLimpiar.addActionListener(e -> {
+        	limpiarCampos();
+        	cargarTabla();
+        });
         
-        vp.btnModificar.addActionListener(e -> editar());
+        vp.btnModificar.addActionListener(e -> {
+        	editar();
+        	cargarTabla();
+        });
         
         vp.btnVolver.addActionListener(e -> {
             vp.close();
             controllerPrincipal.mostrarVentana();
         });
-        vp.btnEliminar.addActionListener(e-> eliminar());
+        vp.btnEliminar.addActionListener(e->{
+        	eliminar();
+        	cargarTabla();
+        });
         
-        vp.btnConsultar.addActionListener(e-> consultar());
+        vp.btnConsultar.addActionListener(e-> {
+        	consultar();
+        	cargarTabla();
+        });
     }
 
 	private void create() {
@@ -139,7 +155,9 @@ public class ControllerPacientes {
 		}
 	}
 
-
+	public void cargarTabla() {
+		vp.modelo.setDataVector(lp.getDatosPacientes(), lp.getColumnsPacinetes());
+	}
 
 	private void limpiarCampos() {
 		vp.txtNombre.setText("");
