@@ -1,2 +1,2 @@
 1234;Ariel;20;M;Neurocirujano
-00;luis mmmm;17;h;general de tos
+00;luis mmmm;17;g;general de tos
