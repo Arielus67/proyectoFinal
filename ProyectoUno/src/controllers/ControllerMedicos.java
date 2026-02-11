@@ -47,7 +47,14 @@ public class ControllerMedicos {
             controllerPrincipal.mostrarVentana();
         });
         vm.btnEliminar.addActionListener(e-> {
-        	eliminar();
+        	int seleccionado = vm.table.getSelectedRow();
+			if (seleccionado == -1) {
+				JOptionPane.showMessageDialog(null, "No has seleccionado a ninguno");
+				return;
+			}
+			String codigo = vm.table.getValueAt(seleccionado, 0).toString();
+
+			lm.eliminarMedico(codigo);
         	cargarTabla();
         });
         

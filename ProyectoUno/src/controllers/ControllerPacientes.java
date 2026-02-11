@@ -47,7 +47,14 @@ public class ControllerPacientes {
             controllerPrincipal.mostrarVentana();
         });
         vp.btnEliminar.addActionListener(e->{
-        	eliminar();
+        	int seleccionado = vp.table.getSelectedRow();
+			if (seleccionado == -1) {
+				JOptionPane.showMessageDialog(null, "No has seleccionado a ninguno");
+				return;
+			}
+			String identificacion = vp.table.getValueAt(seleccionado, 4).toString();
+
+			lp.eliminarPaciente(identificacion);
         	cargarTabla();
         });
         

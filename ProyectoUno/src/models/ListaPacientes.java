@@ -224,7 +224,7 @@ public class ListaPacientes {
 				data[i][0] = datos[1]; // Nombre
 				data[i][1] = Integer.parseInt(datos[2]); // Edad
 				data[i][2] = datos[3]; // Sexo
-				data[i][3] = datos[0]; // Identificacion
+				data[i][3] = datos[3]; // Identificacion
 				data[i][4] = datos[4]; // Contacto
 				data[i][5] = datos[5]; // Enfermedad
 				data[i][6] = Integer.parseInt(datos[6]); // Gravedad
