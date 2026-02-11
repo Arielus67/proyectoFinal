@@ -12,6 +12,7 @@ public class ControllerPacientes {
 	private ListaPacientes lp;
 	private VentanaPacientes vp;
 	private ControllerPrincipal controllerPrincipal;
+	private boolean modoEdicion = false;
 
 	public ControllerPacientes(ControllerPrincipal controllerPrincipal) {
 		this.controllerPrincipal = controllerPrincipal;
@@ -52,7 +53,7 @@ public class ControllerPacientes {
 				JOptionPane.showMessageDialog(null, "No has seleccionado a ninguno");
 				return;
 			}
-			String identificacion = vp.table.getValueAt(seleccionado, 4).toString();
+			String identificacion = vp.table.getValueAt(seleccionado, 0).toString();
 
 			lp.eliminarPaciente(identificacion);
         	cargarTabla();
@@ -85,7 +86,7 @@ public class ControllerPacientes {
 
     	    Enfermedad en = new Enfermedad(enfermedad, gravedad);
     	    Paciente p = new Paciente(nombre, edad, sexo, identificacion, contacto, en);
-
+    	   
     	    lp.agregarPaciente(p);
     	    limpiarCampos();
 
@@ -94,33 +95,62 @@ public class ControllerPacientes {
     	}
 	}
 	private void editar() {
-    	String nombre = vp.txtNombre.getText();
-    	String edadTxt = vp.txtEdad.getText();
-    	String sexoTxt = vp.txtSexo.getText();
-    	String identificacion = vp.txtIdentificacion.getText();
-    	String contacto = vp.txtContacto.getText();
-    	String enfermedad = vp.txtAreaEnfermedad.getText();
-    	int gravedad = (int) vp.comboBox.getSelectedItem();
+		
+		String identificacion = vp.txtIdentificacion.getText();
+		
+		if (identificacion.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debes ingresar el código");
+			return;
+		}
+		if(!modoEdicion) {
+			
+			Paciente p = lp.buscarPaciente(identificacion);
+			
+			if(p != null) {
+				
+				vp.txtNombre.setText(p.getNombre());
+				vp.txtEdad.setText(String.valueOf(p.getEdad()));
+				vp.txtSexo.setText(String.valueOf(p.getSexo()));
+				vp.txtContacto.setText(p.getContacto());
+				vp.txtAreaEnfermedad.setText(p.getEnfermedad().getNombreEnfermedad());
+				vp.comboBox.setSelectedIndex(p.getEnfermedad().getGravedad());
+				
+				modoEdicion = true;
+				JOptionPane.showMessageDialog(null, "Ahora puedes modificar los datos");
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Médico no encontrado");
+			}
+		} else {
+			
+		 	String nombre = vp.txtNombre.getText();
+	    	String edadTxt = vp.txtEdad.getText();
+	    	String sexoTxt = vp.txtSexo.getText();
+	    	String contacto = vp.txtContacto.getText();
+	    	String enfermedad = vp.txtAreaEnfermedad.getText();
+	    	int gravedad = (int) vp.comboBox.getSelectedItem();
+	    	
+	    	if (!nombre.isEmpty() &&
+	        	    !edadTxt.isEmpty() &&
+	        	    !sexoTxt.isEmpty() &&
+	        	    !identificacion.isEmpty() &&
+	        	    !contacto.isEmpty() &&
+	        	    !enfermedad.isEmpty()) {
 
-    	if (!nombre.isEmpty() &&
-    	    !edadTxt.isEmpty() &&
-    	    !sexoTxt.isEmpty() &&
-    	    !identificacion.isEmpty() &&
-    	    !contacto.isEmpty() &&
-    	    !enfermedad.isEmpty()) {
+	        	    int edad = Integer.parseInt(edadTxt);
+	        	    char sexo = sexoTxt.charAt(0);
 
-    	    int edad = Integer.parseInt(edadTxt);
-    	    char sexo = sexoTxt.charAt(0);
+	        	    Enfermedad en = new Enfermedad(enfermedad, gravedad);
+	        	    Paciente p = new Paciente(nombre, edad, sexo, identificacion, contacto, en);
 
-    	    Enfermedad en = new Enfermedad(enfermedad, gravedad);
-    	    Paciente p = new Paciente(nombre, edad, sexo, identificacion, contacto, en);
+	        	    lp.editarPaciente(p);
+	        	    limpiarCampos();
 
-    	    lp.editarPaciente(p);
-    	    limpiarCampos();
-
-    	} else {
-    	    JOptionPane.showMessageDialog(null, "Debes rellenar todos los espacios");
-    	}
+		}else {
+			JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
+		}
+		
+    	} 
 	}
 	
 	private void eliminar() {

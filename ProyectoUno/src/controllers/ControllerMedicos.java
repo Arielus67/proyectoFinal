@@ -99,7 +99,6 @@ public class ControllerMedicos {
 			return;
 		}
 
-		// PRIMER CLIC → buscar y cargar datos
 		if (!modoEdicion) {
 
 			Medico m = lm.buscarMedico(codigo);
@@ -119,7 +118,7 @@ public class ControllerMedicos {
 			}
 
 		}
-		// SEGUNDO CLIC → guardar cambios
+		
 		else {
 
 			String nombre = vm.txtNombre.getText();

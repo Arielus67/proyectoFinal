@@ -13,7 +13,7 @@ public class ListaPacientes {
 			if (!archivo.exists()) {
 				archivo.createNewFile();
 			}
-
+			
 			BufferedWriter escritor = new BufferedWriter(new FileWriter(archivo, true));
 			escritor.write(paciente.getIdentificacion() + ";" + paciente.getNombre() + ";" + paciente.getEdad() + ";"
 					+ paciente.getSexo() + ";" + paciente.getContacto() + ";" + paciente.getEnfermedad().getNombreEnfermedad()+";"+
@@ -189,7 +189,7 @@ public class ListaPacientes {
 	}
 
 	public String[] getColumnsPacinetes() {
-		return new String[] {"Nombre","Edad","Sexo","Identificacion","Contacto","Enfermedad","Gravedad"};
+		return new String[] {"Identificacion","nombre","edad","Sexo","Contacto","Enfermedad","Gravedad"};
 	}
 	
 	public Object[][] getDatosPacientes() {
@@ -221,13 +221,13 @@ public class ListaPacientes {
 
 				String[] datos = linea.split(";");
 
-				data[i][0] = datos[1]; // Nombre
-				data[i][1] = Integer.parseInt(datos[2]); // Edad
-				data[i][2] = datos[3]; // Sexo
-				data[i][3] = datos[3]; // Identificacion
-				data[i][4] = datos[4]; // Contacto
-				data[i][5] = datos[5]; // Enfermedad
-				data[i][6] = Integer.parseInt(datos[6]); // Gravedad
+				data[i][0] = datos[0]; 
+				data[i][1] = datos[1]; 
+				data[i][2] = Integer.parseInt(datos[2]); 
+				data[i][3] = datos[3].charAt(0); 
+				data[i][4] = datos[4]; 
+				data[i][5] = datos[5]; 
+				data[i][6] = Integer.parseInt(datos[6]); 
 
 				i++;
 			}
