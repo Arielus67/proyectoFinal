@@ -5,13 +5,15 @@ public class Persona {
 	private String nombre;
 	private int edad;
 	private char sexo;
+	private char delimiter;
 
 	public Persona() {}
-	public Persona(String nombre, int edad, char sexo) {
+	public Persona(String nombre, int edad, char sexo, char delimiter) {
 
 		this.nombre = nombre;
 		this.edad = edad;
 		this.sexo=sexo;
+		this.delimiter=delimiter;
 	}
 	public String getNombre() {
 		return nombre;
@@ -31,9 +33,16 @@ public class Persona {
 	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
+	
+	public char getDelimiter() {
+		return delimiter;
+	}
+	public void setDelimiter(char delimiter) {
+		this.delimiter = delimiter;
+	}
 	@Override
 	public String toString() {
-		return "Persona [nombre=" + nombre + ", edad=" + edad + ", sexo=" + sexo + "]";
+		return nombre +delimiter+ edad +delimiter + sexo +delimiter ;
 	}
 
 	

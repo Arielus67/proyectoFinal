@@ -5,8 +5,8 @@ public class Medico extends Persona{
 	private String codigo;
 	private String especialidad;
 	
-	public Medico(String nombre, int edad, char sexo,String codigo, String especialidad) {
-		super(nombre, edad,sexo);
+	public Medico(String codigo, String nombre, int edad, char sexo, String especialidad, char delimiter) {
+		super(nombre, edad,sexo, delimiter);
 		this.codigo = codigo;
 		this.especialidad = especialidad;
 	}
@@ -25,7 +25,7 @@ public class Medico extends Persona{
 
 	@Override
 	public String toString() {
-		return super.toString()+"Medico [codigo=" + codigo + ", especialidad=" + especialidad + "]";
+		return codigo + super.getDelimiter() +super.toString()+ especialidad;
 	}
 	
 	

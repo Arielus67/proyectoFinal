@@ -8,8 +8,8 @@ public class Paciente extends Persona {
 	
 	public Paciente() {
 	}
-	public Paciente(String nombre, int edad,char sexo, String identificacion, String contacto, Enfermedad enfermedad) {
-		super(nombre, edad, sexo);
+	public Paciente(String identificacion, String nombre, int edad,char sexo, String contacto, Enfermedad enfermedad, char delimiter) {
+		super(nombre, edad, sexo, delimiter);
 		this.identificacion = identificacion;
 		this.contacto = contacto;
 		this.enfermedad = enfermedad;
@@ -34,8 +34,7 @@ public class Paciente extends Persona {
 	}
 	@Override
 	public String toString() {
-		return "Paciente [identificacion=" + identificacion + ", contacto=" + contacto + ", enfermedad=" + enfermedad
-				+ "]";
+		return identificacion +super.getDelimiter()+super.toString()+ contacto + super.getDelimiter()+ enfermedad.getNombreEnfermedad()+super.getDelimiter()+enfermedad.getGravedad();
 	}
 
 }

@@ -1,2 +1,1 @@
-1234;Ariel;20;M;Neurocirujano
-00;luis mmmm;18;g;general de tos
+C4H321,Luis,24,M,Neurocirujano

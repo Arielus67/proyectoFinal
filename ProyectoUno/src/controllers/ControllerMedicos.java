@@ -1,225 +1,189 @@
 package controllers;
 
-import javax.swing.JOptionPane;
+import java.io.IOException;
 
-import models.ListaMedicos;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import models.Archivo;
 import models.Medico;
 import view.VentanaMedicos;
 
 public class ControllerMedicos {
 
-	private ListaMedicos lm;
 	private VentanaMedicos vm;
 	private ControllerPrincipal controllerPrincipal;
-	private boolean modoEdicion = false;
-	
+	private Archivo archivo;
+	private DefaultTableModel model;
+	private final char DELIMITER = ',';
+
 	public ControllerMedicos(ControllerPrincipal controllerPrincipal) {
 		this.controllerPrincipal = controllerPrincipal;
-		this.lm = new ListaMedicos();
 		this.vm = new VentanaMedicos();
+		this.archivo = new Archivo("medicos.txt", DELIMITER);
+		
+		funciones();
+		initTable();
+		loadTable();
 	}
-	
+
 	public void start() {
 		vm.init();
-		funciones();
-		cargarTabla();
 	}
-	
+
+	private void initTable() {
+		model = new DefaultTableModel();
+		model.addColumn("Codigo");
+		model.addColumn("Nombre");
+		model.addColumn("Edad");
+		model.addColumn("Sexo");
+		model.addColumn("Especialidad");
+
+		vm.table.setModel(model);
+	}
+
 	private void funciones() {
 
-        vm.btnAgregar.addActionListener(e -> {
-        	create();
-        	cargarTabla();
-        });
+		vm.btnAgregar.addActionListener(e -> create());
 
-        vm.btnLimpiar.addActionListener(e -> {
-        	limpiarCampos();
-        	cargarTabla();
-        });
-        
-        vm.btnModificar.addActionListener(e -> {
-        	editar();
-        	cargarTabla();
-        });
-        
-        vm.btnVolver.addActionListener(e -> {
-            vm.close();
-            controllerPrincipal.mostrarVentana();
-        });
-        vm.btnEliminar.addActionListener(e-> {
-        	int seleccionado = vm.table.getSelectedRow();
-			if (seleccionado == -1) {
-				JOptionPane.showMessageDialog(null, "No has seleccionado a ninguno");
-				return;
-			}
-			String codigo = vm.table.getValueAt(seleccionado, 0).toString();
+		vm.btnLimpiar.addActionListener(e -> clear());
 
-			lm.eliminarMedico(codigo);
-        	cargarTabla();
-        });
-        
-        vm.btnConsultar.addActionListener(e-> {
-        	consultar();
-        	cargarTabla();
-        });
-    }
-	
-	private void create() {
-    	String nombre = vm.txtNombre.getText();
-    	String edadTxt = vm.txtEdad.getText();
-    	String sexoTxt = vm.txtSexo.getText();
-    	String codigo = vm.txtCodigo.getText();
-    	String especialidad = vm.txtEspecialidad.getText();
+		vm.btnModificar.addActionListener(e -> edit());
 
-    	if (!nombre.isEmpty() &&
-    	    !edadTxt.isEmpty() &&
-    	    !sexoTxt.isEmpty() &&
-    	    !codigo.isEmpty() &&
-    	    !especialidad.isEmpty()) {
+		vm.btnVolver.addActionListener(e -> {
+			vm.close();
+			controllerPrincipal.mostrarVentana();
+		});
+		vm.btnEliminar.addActionListener(e -> delete());
 
-    	    int edad = Integer.parseInt(edadTxt);
-    	    char sexo = sexoTxt.charAt(0);
-
-    	    Medico m = new Medico(nombre, edad, sexo, codigo, especialidad);
-
-    	    lm.agregarMedico(m);
-    	    limpiarCampos();
-
-    	} else {
-    	    JOptionPane.showMessageDialog(null, "Debes rellenar todos los espacios");
-    	}
+		vm.btnConsultar.addActionListener(e -> search());
 	}
-	
-	private void editar() {
 
-		String codigo = vm.txtCodigo.getText();
+	private void create() {
 
-		if (codigo.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debes ingresar el código");
-			return;
-		}
-
-		if (!modoEdicion) {
-
-			Medico m = lm.buscarMedico(codigo);
-
-			if (m != null) {
-
-				vm.txtNombre.setText(m.getNombre());
-				vm.txtEdad.setText(String.valueOf(m.getEdad()));
-				vm.txtSexo.setText(String.valueOf(m.getSexo()));
-				vm.txtEspecialidad.setText(m.getEspecialidad());
-
-				modoEdicion = true;
-				JOptionPane.showMessageDialog(null, "Ahora puedes modificar los datos");
-
-			} else {
-				JOptionPane.showMessageDialog(null, "Médico no encontrado");
-			}
-
-		}
-		
-		else {
+		try {
 
 			String nombre = vm.txtNombre.getText();
 			String edadTxt = vm.txtEdad.getText();
-			String sexoTxt = vm.txtSexo.getText();
+			String sexoTxt = vm.rdbtnMasculino.isSelected() ? "Masculino" : "Femenino";
+			String codigo = vm.txtCodigo.getText();
 			String especialidad = vm.txtEspecialidad.getText();
 
-			if (nombre.isEmpty() || edadTxt.isEmpty() || sexoTxt.isEmpty() || especialidad.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
+			if (!nombre.isEmpty() && !edadTxt.isEmpty() && !sexoTxt.isEmpty() && !codigo.isEmpty()
+					&& !especialidad.isEmpty()) {
+				
+				if (archivo.dontRepeat(codigo)) {
+					JOptionPane.showMessageDialog(null, "El medico con ese codigo ya existe");
+					return;
+				}
+				int edad = Integer.parseInt(edadTxt);
+				char sexo = sexoTxt.charAt(0);
+
+				Medico m = new Medico(codigo, nombre, edad, sexo, especialidad, DELIMITER);
+
+				archivo.add(m.toString());
+				clear();
+				loadTable();
+				
+
+			} else {
+				JOptionPane.showMessageDialog(null, "Debes rellenar todos los espacios");
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Error al agregar al Medico");
+		}
+
+	}
+	private void delete() {
+		try {
+
+			int row = vm.table.getSelectedRow();
+
+			if (row == -1) {
+				JOptionPane.showMessageDialog(null, "Seleccione un medico");
 				return;
 			}
 
-			int edad = Integer.parseInt(edadTxt);
-			char sexo = sexoTxt.charAt(0);
+			String codigo = model.getValueAt(row, 0).toString();
 
-			Medico m = new Medico(nombre, edad, sexo, codigo, especialidad);
-			lm.editarMedico(m);
+			archivo.delete(codigo);
 
-			JOptionPane.showMessageDialog(null, "Médico actualizado correctamente");
+			JOptionPane.showMessageDialog(null, "Medico eliminado");
 
-			limpiarCampos();
-			modoEdicion = false;
+			loadTable();
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error al eliminar al medico " + e);
 		}
 	}
+	private void search() {
+		try {
 
-	
-//	private void editar() {
-//    	String nombre = vm.txtNombre.getText();
-//    	String edadTxt = vm.txtEdad.getText();
-//    	String sexoTxt = vm.txtSexo.getText();
-//    	String codigo = vm.txtCodigo.getText();
-//    	String especialidad = vm.txtEspecialidad.getText();
-//
-//    	if (!nombre.isEmpty() &&
-//    	    !edadTxt.isEmpty() &&
-//    	    !sexoTxt.isEmpty() &&
-//    	    !codigo.isEmpty() &&
-//    	    !especialidad.isEmpty()) {
-//
-//    	    int edad = Integer.parseInt(edadTxt);
-//    	    char sexo = sexoTxt.charAt(0);
-//
-//    	    Medico m = new Medico(nombre, edad, sexo, codigo, especialidad);
-//
-//    	    lm.editarMedico(m);;
-//    	    limpiarCampos();
-//
-//    	} else {
-//    	    JOptionPane.showMessageDialog(null, "Debes rellenar todos los espacios");
-//    	}
-//	}
-	
-	private void eliminar() {
+			String codigo = vm.txtBuscar.getText();
 
-		String codigo = vm.txtCodigo.getText();
-		
-		if (!codigo.isEmpty()) {
-			lm.eliminarMedico(codigo);;
-			limpiarCampos();
-			JOptionPane.showMessageDialog(null, "Se Elimino con exito");
-		}else {
-			JOptionPane.showMessageDialog(null, "Debes rellenar el espacio");
-		}
-	}
-	
-	private void consultar() {
+			String line = archivo.getById(codigo);
 
-		String codigo = vm.txtCodigo.getText();
-
-		if (!codigo.isEmpty()) {
-
-			Medico m = lm.buscarMedico(codigo);
-
-			if (m != null) {
-
-				vm.txtNombre.setText(m.getNombre());
-				vm.txtEdad.setText(String.valueOf(m.getEdad()));
-				vm.txtSexo.setText(String.valueOf(m.getSexo()));
-				vm.txtEspecialidad.setText(m.getEspecialidad());
-
-			} else {
-				JOptionPane.showMessageDialog(null, "Médico no encontrado");
+			if (line == null) {
+				JOptionPane.showMessageDialog(null, "No encontrado");
+				return;
 			}
 
-		} else {
-			JOptionPane.showMessageDialog(null, "Debes ingresar el código");
+			model.setRowCount(0);
+			model.addRow(line.split(String.valueOf(DELIMITER)));
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error al buscar al medico " + e);
 		}
 	}
-	
-	private void cargarTabla() {
-		vm.modelo.setDataVector(lm.getDatosMedicos(), lm.getColumnsMedicos());
+	private void edit() {
+		try {
+
+			
+			String codigo = vm.txtCodigo.getText();		
+			String nombre = vm.txtNombre.getText();
+			int edad = Integer.parseInt(vm.txtEdad.getText());
+			char genero = vm.rdbtnMasculino.isSelected() ? "Masculino".charAt(0) : "Femenino".charAt(0);
+			String especialidad = vm.txtEspecialidad.getText();
+			
+			Medico m = new Medico(codigo, nombre, edad, genero, especialidad, DELIMITER);
+
+			archivo.update(codigo, m.toString());
+
+			JOptionPane.showMessageDialog(null, "Medico actualizado");
+
+			loadTable();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Error al editar al Medico " + e);
+		}
 	}
-
-
-	
-	private void limpiarCampos() {
+	private void clear() {
 		vm.txtNombre.setText("");
 		vm.txtEdad.setText("");
-		vm.txtSexo.setText("");
+		vm.rdbtnMasculino.setSelected(false);
+		vm.rdbtnFemenino.setSelected(false);
 		vm.txtCodigo.setText("");
 		vm.txtEspecialidad.setText("");
-		modoEdicion = false;
+
+	}
+	private void loadTable() {
+		try {
+
+			model.setRowCount(0);
+
+			String data = archivo.getData();
+			if (data == null || data.isEmpty())
+				return;
+
+			String[] lines = data.split("\n");
+
+			for (String line : lines) {
+				String[] values = line.split(String.valueOf(DELIMITER));
+				model.addRow(values);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

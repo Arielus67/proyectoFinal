@@ -29,9 +29,7 @@ public class ControllerPrincipal {
             cm.start();
         });
         vp.btnCitas.addActionListener(e->{
-        	vp.close();
-        	ControllerCitas cc = new ControllerCitas(this);
-        	cc.start();
+
         });
     }
 

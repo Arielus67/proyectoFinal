@@ -1,207 +1,205 @@
 package controllers;
 
-import javax.swing.JOptionPane;
+import java.io.IOException;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import models.Archivo;
 import models.Enfermedad;
-import models.ListaPacientes;
 import models.Paciente;
 import view.VentanaPacientes;
 
 public class ControllerPacientes {
 
-	private ListaPacientes lp;
 	private VentanaPacientes vp;
 	private ControllerPrincipal controllerPrincipal;
-	private boolean modoEdicion = false;
+	private Archivo archivo;
+	private DefaultTableModel model;
+	private final char DELIMITER = ',';
 
 	public ControllerPacientes(ControllerPrincipal controllerPrincipal) {
 		this.controllerPrincipal = controllerPrincipal;
-		this.lp = new ListaPacientes();
 		this.vp = new VentanaPacientes();
+		this.archivo = new Archivo("pacientes.txt", DELIMITER);
+
+		funciones();
+		initTable();
+		loadTable();
 	}
 
 	public void start() {
 		vp.init();
-		funciones();
-		cargarTabla();
+
+	}
+
+	private void initTable() {
+		model = new DefaultTableModel();
+		model.addColumn("identificaion");
+		model.addColumn("Nombre");
+		model.addColumn("Edad");
+		model.addColumn("Genero");
+		model.addColumn("Contacto");
+		model.addColumn("Enfermedad");
+		model.addColumn("Gravedad");
+
+		vp.table.setModel(model);
 	}
 
 	private void funciones() {
 
-        vp.btnGuardar.addActionListener(e -> {
-        	create();
-        	cargarTabla();
-        });
+		vp.btnGuardar.addActionListener(e -> create());
 
-        vp.btnLimpiar.addActionListener(e -> {
-        	limpiarCampos();
-        	cargarTabla();
-        });
-        
-        vp.btnModificar.addActionListener(e -> {
-        	editar();
-        	cargarTabla();
-        });
-        
-        vp.btnVolver.addActionListener(e -> {
-            vp.close();
-            controllerPrincipal.mostrarVentana();
-        });
-        vp.btnEliminar.addActionListener(e->{
-        	int seleccionado = vp.table.getSelectedRow();
-			if (seleccionado == -1) {
-				JOptionPane.showMessageDialog(null, "No has seleccionado a ninguno");
-				return;
-			}
-			String identificacion = vp.table.getValueAt(seleccionado, 0).toString();
+		vp.btnLimpiar.addActionListener(e -> clear());
 
-			lp.eliminarPaciente(identificacion);
-        	cargarTabla();
-        });
-        
-        vp.btnConsultar.addActionListener(e-> {
-        	consultar();
-        	cargarTabla();
-        });
-    }
+		vp.btnModificar.addActionListener(e -> edit());
+
+		vp.btnVolver.addActionListener(e -> {
+			vp.close();
+			controllerPrincipal.mostrarVentana();
+		});
+		vp.btnEliminar.addActionListener(e -> delete());
+
+		vp.btnConsultar.addActionListener(e -> search());
+	}
 
 	private void create() {
-    	String nombre = vp.txtNombre.getText();
-    	String edadTxt = vp.txtEdad.getText();
-    	String sexoTxt = vp.txtSexo.getText();
-    	String identificacion = vp.txtIdentificacion.getText();
-    	String contacto = vp.txtContacto.getText();
-    	String enfermedad = vp.txtAreaEnfermedad.getText();
-    	int gravedad = (int) vp.comboBox.getSelectedItem();
 
-    	if (!nombre.isEmpty() &&
-    	    !edadTxt.isEmpty() &&
-    	    !sexoTxt.isEmpty() &&
-    	    !identificacion.isEmpty() &&
-    	    !contacto.isEmpty() &&
-    	    !enfermedad.isEmpty()) {
+		try {
 
-    	    int edad = Integer.parseInt(edadTxt);
-    	    char sexo = sexoTxt.charAt(0);
+			String nombre = vp.txtNombre.getText();
+			String edadTxt = vp.txtEdad.getText();
+			String genero = vp.rdbtnMasculino.isSelected() ? "Masculino" : "Femenino";
+			String identificacion = vp.txtIdentificacion.getText();
+			String contacto = vp.txtContacto.getText();
+			String enfermedad = vp.txtAreaEnfermedad.getText();
+			int gravedad = (int) vp.comboBox.getSelectedItem();
 
-    	    Enfermedad en = new Enfermedad(enfermedad, gravedad);
-    	    Paciente p = new Paciente(nombre, edad, sexo, identificacion, contacto, en);
-    	   
-    	    lp.agregarPaciente(p);
-    	    limpiarCampos();
-
-    	} else {
-    	    JOptionPane.showMessageDialog(null, "Debes rellenar todos los espacios");
-    	}
-	}
-	private void editar() {
-		
-		String identificacion = vp.txtIdentificacion.getText();
-		
-		if (identificacion.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debes ingresar el código");
-			return;
-		}
-		if(!modoEdicion) {
-			
-			Paciente p = lp.buscarPaciente(identificacion);
-			
-			if(p != null) {
+			if (!nombre.isEmpty() && !edadTxt.isEmpty() && !genero.isEmpty() && !identificacion.isEmpty()
+					&& !contacto.isEmpty() && !enfermedad.isEmpty()) {
 				
-				vp.txtNombre.setText(p.getNombre());
-				vp.txtEdad.setText(String.valueOf(p.getEdad()));
-				vp.txtSexo.setText(String.valueOf(p.getSexo()));
-				vp.txtContacto.setText(p.getContacto());
-				vp.txtAreaEnfermedad.setText(p.getEnfermedad().getNombreEnfermedad());
-				vp.comboBox.setSelectedIndex(p.getEnfermedad().getGravedad());
-				
-				modoEdicion = true;
-				JOptionPane.showMessageDialog(null, "Ahora puedes modificar los datos");
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Médico no encontrado");
-			}
-		} else {
-			
-		 	String nombre = vp.txtNombre.getText();
-	    	String edadTxt = vp.txtEdad.getText();
-	    	String sexoTxt = vp.txtSexo.getText();
-	    	String contacto = vp.txtContacto.getText();
-	    	String enfermedad = vp.txtAreaEnfermedad.getText();
-	    	int gravedad = (int) vp.comboBox.getSelectedItem();
-	    	
-	    	if (!nombre.isEmpty() &&
-	        	    !edadTxt.isEmpty() &&
-	        	    !sexoTxt.isEmpty() &&
-	        	    !identificacion.isEmpty() &&
-	        	    !contacto.isEmpty() &&
-	        	    !enfermedad.isEmpty()) {
+				if(archivo.dontRepeat(identificacion)) {
+					JOptionPane.showMessageDialog(null, "El paciente con esa identificacion ya existe");
+					return;
+				}
+				int edad = Integer.parseInt(edadTxt);
+				char sexo = genero.charAt(0);
 
-	        	    int edad = Integer.parseInt(edadTxt);
-	        	    char sexo = sexoTxt.charAt(0);
+				Enfermedad en = new Enfermedad(enfermedad, gravedad);
+				Paciente p = new Paciente(identificacion, nombre, edad, sexo, contacto, en, DELIMITER);
+				archivo.add(p.toString());
 
-	        	    Enfermedad en = new Enfermedad(enfermedad, gravedad);
-	        	    Paciente p = new Paciente(nombre, edad, sexo, identificacion, contacto, en);
+				clear();
+				loadTable();
 
-	        	    lp.editarPaciente(p);
-	        	    limpiarCampos();
-
-		}else {
-			JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
-		}
-		
-    	} 
-	}
-	
-	private void eliminar() {
-
-		String identificacion = vp.txtIdentificacion.getText();
-		
-		if (!identificacion.isEmpty()) {
-			lp.eliminarPaciente(identificacion);
-			limpiarCampos();
-			JOptionPane.showMessageDialog(null, "Se Elimino con exito");
-		}else {
-			JOptionPane.showMessageDialog(null, "Debes rellenar el espacio");
-		}
-	}
-	
-	private void consultar() {
-
-		String identificacion = vp.txtIdentificacion.getText();
-
-		if (!identificacion.isEmpty()) {
-
-			Paciente p = lp.buscarPaciente(identificacion);
-
-			if (p != null) {
-
-				vp.txtNombre.setText(p.getNombre());
-				vp.txtEdad.setText(String.valueOf(p.getEdad()));
-				vp.txtSexo.setText(String.valueOf(p.getSexo()));
-				vp.txtContacto.setText(p.getContacto());
-				vp.txtAreaEnfermedad.setText(p.getEnfermedad().getNombreEnfermedad());
-				vp.comboBox.setSelectedItem(p.getEnfermedad().getGravedad());
 
 			} else {
-				JOptionPane.showMessageDialog(null, "Paciente no encontrado");
+				JOptionPane.showMessageDialog(null, "Debes rellenar todos los espacios");
 			}
 
-		} else {
-			JOptionPane.showMessageDialog(null, "Debes ingresar la identificación");
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Error al agregar al Paciente");
+		}
+
+	}
+
+	private void delete() {
+		try {
+
+			int row = vp.table.getSelectedRow();
+
+			if (row == -1) {
+				JOptionPane.showMessageDialog(null, "Seleccione un paciente");
+				return;
+			}
+
+			String identificacion = model.getValueAt(row, 0).toString();
+
+			archivo.delete(identificacion);
+
+			JOptionPane.showMessageDialog(null, "Paciente eliminado");
+
+			loadTable();
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error al eliminar al paciente " + e);
 		}
 	}
 
-	public void cargarTabla() {
-		vp.modelo.setDataVector(lp.getDatosPacientes(), lp.getColumnsPacinetes());
+	private void search() {
+		try {
+
+			String identificacion = vp.txtBuscar.getText();
+
+			String line = archivo.getById(identificacion);
+
+			if (line == null) {
+				JOptionPane.showMessageDialog(null, "No encontrado");
+				return;
+			}
+
+			model.setRowCount(0);
+			model.addRow(line.split(String.valueOf(DELIMITER)));
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error al buscar al paciente " + e);
+		}
 	}
 
-	private void limpiarCampos() {
+	private void edit() {
+		try {
+
+			
+			String identificacion = vp.txtIdentificacion.getText();		
+			String nombre = vp.txtNombre.getText();
+			int edad = Integer.parseInt(vp.txtEdad.getText());
+			String contacto = vp.txtContacto.getText();
+			char genero = vp.rdbtnMasculino.isSelected() ? "Masculino".charAt(0) : "Femenino".charAt(0);
+			String enfermedad = vp.txtAreaEnfermedad.getText();
+			int gravedad = (int)(vp.comboBox.getSelectedItem());
+			
+			Enfermedad en = new Enfermedad(enfermedad, gravedad);
+			Paciente paciente = new Paciente(identificacion, nombre, edad, genero, contacto, en, DELIMITER);
+
+			archivo.update(identificacion, paciente.toString());
+
+			JOptionPane.showMessageDialog(null, "Paciente actualizado");
+
+			loadTable();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Error al editar al paciente " + e);
+		}
+	}
+
+	private void clear() {
 		vp.txtNombre.setText("");
 		vp.txtEdad.setText("");
-		vp.txtSexo.setText("");
+		vp.rdbtnMasculino.setSelected(false);
+		vp.rdbtnFemenino.setSelected(false);
 		vp.txtIdentificacion.setText("");
 		vp.txtContacto.setText("");
 		vp.txtAreaEnfermedad.setText("");
+		vp.comboBox.setSelectedIndex(0);
+	}
+
+	private void loadTable() {
+		try {
+
+			model.setRowCount(0);
+
+			String data = archivo.getData();
+			if (data == null || data.isEmpty())
+				return;
+
+			String[] lines = data.split("\n");
+
+			for (String line : lines) {
+				String[] values = line.split(String.valueOf(DELIMITER));
+				model.addRow(values);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
