@@ -13,24 +13,26 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class VentanaCitas extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	public JButton btnAsignar;
-	public JComboBox comboBoxMedicos;
-	public JComboBox comboBoxPacientes;
-	public JComboBox comboBoxCitas;
-	public JButton btnConsultar;
-	public JButton btnEliminar;
-	public JTextArea textAreaConsulta;
 	public JButton btnVolver;
+	public DefaultTableModel modeloCitas;
+	public DefaultTableModel modeloPacientes;
+	public DefaultTableModel modeloMedicos;
+	public JTable tableCitas;
+	public JTable tablePacientes;
+	public JTable tableMedicos;
 
 	public VentanaCitas() {
 		setBackground(Color.LIGHT_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 788, 555);
+		setBounds(100, 100, 907, 713);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -38,88 +40,82 @@ public class VentanaCitas extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 102, 153));
-		panel.setBounds(10, 11, 266, 494);
+		panel.setBounds(11, 343, 375, 325);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
-		comboBoxPacientes = new JComboBox();
-		comboBoxPacientes.setBounds(10, 39, 234, 22);
-		panel.add(comboBoxPacientes);
-		
-		JLabel lblMedicos = new JLabel("Medicos Disponibles");
-		lblMedicos.setForeground(Color.WHITE);
-		lblMedicos.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblMedicos.setBounds(10, 21, 135, 14);
-		panel.add(lblMedicos);
-		
-		JLabel lblPacientes = new JLabel("Pacientes ");
-		lblPacientes.setForeground(Color.WHITE);
-		lblPacientes.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblPacientes.setBounds(10, 72, 135, 14);
-		panel.add(lblPacientes);
-		
-		comboBoxMedicos = new JComboBox();
-		comboBoxMedicos.setBounds(10, 97, 234, 22);
-		panel.add(comboBoxMedicos);
-		
-		btnAsignar = new JButton("Asignar");
-		btnAsignar.setBorder(null);
-		btnAsignar.setBackground(Color.WHITE);
-		btnAsignar.setForeground(new Color(0, 102, 153));
-		btnAsignar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAsignar.setBounds(52, 150, 135, 37);
-		panel.add(btnAsignar);
 		
 		btnVolver = new JButton("Volver");
 		btnVolver.setForeground(new Color(0, 102, 153));
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnVolver.setBorder(null);
 		btnVolver.setBackground(Color.WHITE);
-		btnVolver.setBounds(70, 418, 135, 37);
+		btnVolver.setBounds(12, 240, 110, 29);
 		panel.add(btnVolver);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(286, 11, 476, 147);
+		panel_1.setBounds(395, 11, 486, 262);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		comboBoxCitas = new JComboBox();
-		comboBoxCitas.setBounds(10, 31, 376, 22);
-		panel_1.add(comboBoxCitas);
+		JLabel lblPacientes = new JLabel("Pacientes ");
+		lblPacientes.setBounds(10, 11, 135, 14);
+		panel_1.add(lblPacientes);
+		lblPacientes.setForeground(new Color(0, 102, 153));
+		lblPacientes.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
-		JLabel lblCitas = new JLabel("Citas");
-		lblCitas.setForeground(new Color(0, 102, 153));
-		lblCitas.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCitas.setBounds(10, 11, 135, 14);
-		panel_1.add(lblCitas);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(0, 36, 486, 225);
+		panel_1.add(scrollPane_1);
 		
-		btnConsultar = new JButton("Consultar");
-		btnConsultar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnConsultar.setBorder(null);
-		btnConsultar.setBackground(new Color(0, 102, 153));
-		btnConsultar.setForeground(Color.WHITE);
-		btnConsultar.setBounds(10, 91, 135, 29);
-		panel_1.add(btnConsultar);
-		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBorder(null);
-		btnEliminar.setBackground(new Color(0, 102, 153));
-		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnEliminar.setForeground(Color.WHITE);
-		btnEliminar.setBounds(251, 91, 135, 29);
-		panel_1.add(btnEliminar);
+		modeloPacientes = new DefaultTableModel();
+		tablePacientes = new JTable(modeloPacientes);
+		scrollPane_1.setViewportView(tablePacientes);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(286, 169, 476, 336);
+		panel_2.setBounds(395, 342, 486, 328);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
-		textAreaConsulta = new JTextArea();
-		textAreaConsulta.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		textAreaConsulta.setBounds(10, 11, 456, 314);
-		panel_2.add(textAreaConsulta);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 25, 486, 251);
+		panel_2.add(scrollPane);
+		
+		modeloCitas = new DefaultTableModel();
+		tableCitas = new JTable(modeloCitas);
+		scrollPane.setViewportView(tableCitas);
+		
+		JLabel lblCitas = new JLabel("Citas");
+		lblCitas.setBounds(10, 0, 135, 14);
+		panel_2.add(lblCitas);
+		lblCitas.setForeground(new Color(0, 102, 153));
+		lblCitas.setFont(new Font("Tahoma", Font.BOLD, 13));
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(255, 255, 255));
+		panel_3.setBounds(10, 11, 375, 262);
+		contentPane.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel lblMedicos = new JLabel("Medicos Disponibles");
+		lblMedicos.setBounds(10, 11, 135, 14);
+		panel_3.add(lblMedicos);
+		lblMedicos.setForeground(new Color(0, 102, 153));
+		lblMedicos.setFont(new Font("Tahoma", Font.BOLD, 13));
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(0, 36, 375, 225);
+		panel_3.add(scrollPane_2);
+		
+		modeloMedicos = new DefaultTableModel();
+		tableMedicos = new JTable(modeloMedicos);
+		scrollPane_2.setViewportView(tableMedicos);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(Color.WHITE);
+		panel_4.setBounds(11, 277, 869, 62);
+		contentPane.add(panel_4);
 
 	}
 	public void init() {

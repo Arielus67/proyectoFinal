@@ -1,6 +1,0 @@
-112;a;12;a;21;213;1;Ariel;20;M;1234;Neurocirujano
-<<<<<<< HEAD
-04;luis;23;h;34;tos;2;luis;99;m;oll;bhhh
-=======
-112;a;12;a;21;213;1;Ariel;20;M;1234;Neurocirujano
->>>>>>> branch 'main' of https://github.com/Arielus67/proyectoFinal.git
