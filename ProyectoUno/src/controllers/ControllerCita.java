@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Archivo;
 import view.VentanaCitas;
@@ -40,11 +41,55 @@ public class ControllerCita {
 		vc.init();
 	}
 	public void funtions() {
+		
+		vc.btnCrearCita.addActionListener(e->create());
 		vc.btnVolver.addActionListener(e->{
 			vc.close();
 			controllerPrincipal.mostrarVentana();
 		});
 	}
+	private void create() {
+		try {
+
+			int getMedico = vc.tableMedicos.getSelectedRow();
+			int getPaciente = vc.tablePacientes.getSelectedRow();
+
+			if (getMedico == -1 || getPaciente == -1) {
+				JOptionPane.showMessageDialog(null, "Debe seleccionar un médico y un paciente");
+				return;
+			}
+
+			String codigoMedico = modelMedicos.getValueAt(getMedico, 0).toString();
+			String nombreMedico = modelMedicos.getValueAt(getMedico, 1).toString();
+			String especialidad = modelMedicos.getValueAt(getMedico, 4).toString();
+
+			String idPaciente = modelPacientes.getValueAt(getPaciente, 0).toString();
+			String nombrePaciente = modelPacientes.getValueAt(getPaciente, 1).toString();
+			String enfermedad = modelPacientes.getValueAt(getPaciente, 5).toString();
+
+			if (archivoCitas.dontRepeat(codigoMedico)) {
+				JOptionPane.showMessageDialog(null, "Este médico ya tiene una cita registrada");
+				return;
+			}
+			
+			String cita = codigoMedico + DELIMITER +
+						  nombreMedico + DELIMITER +
+						  especialidad + DELIMITER +
+						  idPaciente + DELIMITER +
+						  nombrePaciente + DELIMITER +
+						  enfermedad;
+			
+			archivoCitas.add(cita);
+			
+			JOptionPane.showMessageDialog(null, "Cita creada correctamente");
+
+			loadTableCitas();
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error al crear la cita: " + e);
+		}
+	}
+
 	private void initTableCitas() {
 		modelCitas = new DefaultTableModel();
 		modelCitas.addColumn("Codigo");

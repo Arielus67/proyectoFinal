@@ -28,6 +28,7 @@ public class VentanaCitas extends JFrame {
 	public JTable tableCitas;
 	public JTable tablePacientes;
 	public JTable tableMedicos;
+	public JButton btnCrearCita;
 
 	public VentanaCitas() {
 		setBackground(Color.LIGHT_GRAY);
@@ -116,6 +117,15 @@ public class VentanaCitas extends JFrame {
 		panel_4.setBackground(Color.WHITE);
 		panel_4.setBounds(11, 277, 869, 62);
 		contentPane.add(panel_4);
+		panel_4.setLayout(null);
+		
+		btnCrearCita = new JButton("Crear Cita");
+		btnCrearCita.setForeground(new Color(255, 255, 255));
+		btnCrearCita.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCrearCita.setBorder(null);
+		btnCrearCita.setBackground(new Color(0, 102, 153));
+		btnCrearCita.setBounds(45, 22, 110, 29);
+		panel_4.add(btnCrearCita);
 
 	}
 	public void init() {

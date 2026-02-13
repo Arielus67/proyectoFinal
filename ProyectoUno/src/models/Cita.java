@@ -5,8 +5,11 @@ public class Cita {
 	private Paciente paciente;
 	private Medico medico;
 	private char delimiter;
+	private int id;
+	
 	public Cita(Paciente paciente, Medico medico,char delimiter) {
 		super();
+		id=1;
 		this.paciente = paciente;
 		this.medico = medico;
 		this.delimiter=delimiter;
@@ -30,9 +33,16 @@ public class Cita {
 	public void setDelimiter(char delimiter) {
 		this.delimiter = delimiter;
 	}
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	@Override
 	public String toString() {
-		return medico.getCodigo() + delimiter + medico.getNombre()+ delimiter +medico.getEspecialidad()+ delimiter +paciente.getIdentificacion()+ delimiter +paciente.getNombre()+ delimiter +paciente.getEnfermedad() ;
+		return  getId()+ delimiter + medico.getCodigo() + delimiter + medico.getNombre()+ delimiter +medico.getEspecialidad()+ delimiter +paciente.getIdentificacion()+ delimiter +paciente.getNombre()+ delimiter +paciente.getEnfermedad() ;
 	}
 	
 	
