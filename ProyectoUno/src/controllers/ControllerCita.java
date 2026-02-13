@@ -5,6 +5,10 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Archivo;
+import models.Cita;
+import models.Enfermedad;
+import models.Medico;
+import models.Paciente;
 import view.VentanaCitas;
 
 public class ControllerCita {
@@ -20,7 +24,7 @@ public class ControllerCita {
 	private final char DELIMITER = ',';
 
 	public ControllerCita(ControllerPrincipal controllerPrincipal) {
-
+		
 		this.vc = new VentanaCitas();
 		this.controllerPrincipal = controllerPrincipal;
 		this.archivoCitas = new Archivo("citas.txt", DELIMITER);
@@ -43,6 +47,9 @@ public class ControllerCita {
 	public void funtions() {
 		
 		vc.btnCrearCita.addActionListener(e->create());
+		
+		vc.btnEliminar.addActionListener(e->delete());
+		
 		vc.btnVolver.addActionListener(e->{
 			vc.close();
 			controllerPrincipal.mostrarVentana();
@@ -61,25 +68,26 @@ public class ControllerCita {
 
 			String codigoMedico = modelMedicos.getValueAt(getMedico, 0).toString();
 			String nombreMedico = modelMedicos.getValueAt(getMedico, 1).toString();
+			int edadMedico = Integer.parseInt(modelMedicos.getValueAt(getMedico, 2).toString());
+			char sexoMedico = modelMedicos.getValueAt(getMedico, 3).toString().charAt(0);
 			String especialidad = modelMedicos.getValueAt(getMedico, 4).toString();
 
-			String idPaciente = modelPacientes.getValueAt(getPaciente, 0).toString();
-			String nombrePaciente = modelPacientes.getValueAt(getPaciente, 1).toString();
-			String enfermedad = modelPacientes.getValueAt(getPaciente, 5).toString();
 
-			if (archivoCitas.dontRepeat(codigoMedico)) {
-				JOptionPane.showMessageDialog(null, "Este médico ya tiene una cita registrada");
-				return;
-			}
+			String identificacion = modelPacientes.getValueAt(getPaciente, 0).toString();
+			String nombrePaciente = modelPacientes.getValueAt(getPaciente, 1).toString();
+			int edadPaciente = Integer.parseInt(modelPacientes.getValueAt(getPaciente, 2).toString());
+			char sexoPaciente = modelPacientes.getValueAt(getPaciente, 3).toString().charAt(0);
+			String telefonoPaciente = modelPacientes.getValueAt(getPaciente, 4).toString();
+			String enfermedad = modelPacientes.getValueAt(getPaciente, 5).toString();
+			int gravedad = Integer.parseInt(modelPacientes.getValueAt(getPaciente, 6).toString());
 			
-			String cita = codigoMedico + DELIMITER +
-						  nombreMedico + DELIMITER +
-						  especialidad + DELIMITER +
-						  idPaciente + DELIMITER +
-						  nombrePaciente + DELIMITER +
-						  enfermedad;
-			
-			archivoCitas.add(cita);
+			Enfermedad en = new Enfermedad(enfermedad, gravedad, DELIMITER);
+			Paciente p = new Paciente(identificacion, nombrePaciente, edadPaciente, sexoPaciente, telefonoPaciente, en, true,DELIMITER);
+			Medico m = new Medico(codigoMedico, nombreMedico, edadMedico, sexoMedico, especialidad, DELIMITER);
+				
+			Cita cita = new Cita(p, m, DELIMITER);
+		
+			archivoCitas.add(cita.toString());
 			
 			JOptionPane.showMessageDialog(null, "Cita creada correctamente");
 
@@ -89,15 +97,38 @@ public class ControllerCita {
 			JOptionPane.showMessageDialog(null, "Error al crear la cita: " + e);
 		}
 	}
+	private void delete() {
+		try {
 
+			int row = vc.tableCitas.getSelectedRow();
+
+			if (row == -1) {
+				JOptionPane.showMessageDialog(null, "Seleccione una cita ");
+				return;
+			}
+
+			String codigo = modelCitas.getValueAt(row, 0).toString();
+
+			archivoCitas.delete(codigo);
+
+			JOptionPane.showMessageDialog(null, "Cita eliminado");
+
+			loadTableCitas();
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error al eliminar la cita " + e);
+		}
+	}
 	private void initTableCitas() {
 		modelCitas = new DefaultTableModel();
+		modelCitas.addColumn("Id");
 		modelCitas.addColumn("Codigo");
 		modelCitas.addColumn("Medico");
 		modelCitas.addColumn("Especialidad");
 		modelCitas.addColumn("Identificacion");
 		modelCitas.addColumn("Nombre");
 		modelCitas.addColumn("Enfermedad");
+		modelCitas.addColumn("Activo");
 		
 		vc.tableCitas.setModel(modelCitas);
 		

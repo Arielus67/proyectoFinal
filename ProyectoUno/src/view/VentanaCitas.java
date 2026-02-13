@@ -29,6 +29,8 @@ public class VentanaCitas extends JFrame {
 	public JTable tablePacientes;
 	public JTable tableMedicos;
 	public JButton btnCrearCita;
+	public JButton btnEliminar;
+	public JButton btnBuscar;
 
 	public VentanaCitas() {
 		setBackground(Color.LIGHT_GRAY);
@@ -50,12 +52,20 @@ public class VentanaCitas extends JFrame {
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnVolver.setBorder(null);
 		btnVolver.setBackground(Color.WHITE);
-		btnVolver.setBounds(12, 240, 110, 29);
+		btnVolver.setBounds(10, 268, 110, 29);
 		panel.add(btnVolver);
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setForeground(new Color(0, 102, 153));
+		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnBuscar.setBorder(null);
+		btnBuscar.setBackground(Color.WHITE);
+		btnBuscar.setBounds(237, 268, 110, 29);
+		panel.add(btnBuscar);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(395, 11, 486, 262);
+		panel_1.setBounds(395, 11, 486, 320);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -66,7 +76,7 @@ public class VentanaCitas extends JFrame {
 		lblPacientes.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 36, 486, 225);
+		scrollPane_1.setBounds(0, 36, 486, 273);
 		panel_1.add(scrollPane_1);
 		
 		modeloPacientes = new DefaultTableModel();
@@ -93,6 +103,14 @@ public class VentanaCitas extends JFrame {
 		lblCitas.setForeground(new Color(0, 102, 153));
 		lblCitas.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setForeground(Color.WHITE);
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnEliminar.setBorder(null);
+		btnEliminar.setBackground(new Color(0, 102, 153));
+		btnEliminar.setBounds(10, 288, 110, 29);
+		panel_2.add(btnEliminar);
+		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(255, 255, 255));
 		panel_3.setBounds(10, 11, 375, 262);
@@ -115,7 +133,7 @@ public class VentanaCitas extends JFrame {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(Color.WHITE);
-		panel_4.setBounds(11, 277, 869, 62);
+		panel_4.setBounds(11, 277, 375, 62);
 		contentPane.add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -124,7 +142,7 @@ public class VentanaCitas extends JFrame {
 		btnCrearCita.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCrearCita.setBorder(null);
 		btnCrearCita.setBackground(new Color(0, 102, 153));
-		btnCrearCita.setBounds(45, 22, 110, 29);
+		btnCrearCita.setBounds(44, 22, 110, 29);
 		panel_4.add(btnCrearCita);
 
 	}

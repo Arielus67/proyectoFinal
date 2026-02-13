@@ -4,11 +4,12 @@ public class Enfermedad {
 
 	private String nombreEnfermedad;
 	private int gravedad;
-
-	public Enfermedad(String nombreEnfermedad, int gravedad) {
+	private char delimiter;
+	public Enfermedad(String nombreEnfermedad, int gravedad, char delimiter) {
 		super();
 		this.nombreEnfermedad = nombreEnfermedad;
 		this.gravedad = gravedad;
+		this.delimiter=delimiter;
 	}
 
 	public String getNombreEnfermedad() {
@@ -26,10 +27,18 @@ public class Enfermedad {
 	public void setGravedad(int gravedad) {
 		this.gravedad = gravedad;
 	}
+	
+	public char getDelimiter() {
+		return delimiter;
+	}
+
+	public void setDelimiter(char delimiter) {
+		this.delimiter = delimiter;
+	}
 
 	@Override
 	public String toString() {
-		return "Enfermedad [nombreEnfermedad=" + nombreEnfermedad + ", gravedad=" + gravedad + "]";
+		return nombreEnfermedad + delimiter + gravedad;
 	}
 
 }

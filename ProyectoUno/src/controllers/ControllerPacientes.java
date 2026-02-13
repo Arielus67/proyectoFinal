@@ -41,7 +41,7 @@ public class ControllerPacientes {
 		model.addColumn("Contacto");
 		model.addColumn("Enfermedad");
 		model.addColumn("Gravedad");
-
+		model.addColumn("Activo");
 		vp.table.setModel(model);
 	}
 
@@ -84,8 +84,8 @@ public class ControllerPacientes {
 				int edad = Integer.parseInt(edadTxt);
 				char sexo = genero.charAt(0);
 
-				Enfermedad en = new Enfermedad(enfermedad, gravedad);
-				Paciente p = new Paciente(identificacion, nombre, edad, sexo, contacto, en, DELIMITER);
+				Enfermedad en = new Enfermedad(enfermedad, gravedad, DELIMITER);
+				Paciente p = new Paciente(identificacion, nombre, edad, sexo, contacto, en, false ,DELIMITER);
 				archivo.add(p.toString());
 
 				clear();
@@ -157,8 +157,8 @@ public class ControllerPacientes {
 			String enfermedad = vp.txtAreaEnfermedad.getText();
 			int gravedad = (int)(vp.comboBox.getSelectedItem());
 			
-			Enfermedad en = new Enfermedad(enfermedad, gravedad);
-			Paciente paciente = new Paciente(identificacion, nombre, edad, genero, contacto, en, DELIMITER);
+			Enfermedad en = new Enfermedad(enfermedad, gravedad,DELIMITER);
+			Paciente paciente = new Paciente(identificacion, nombre, edad, genero, contacto, en, false,DELIMITER);
 
 			archivo.update(identificacion, paciente.toString());
 

@@ -9,7 +9,7 @@ public class Cita {
 	
 	public Cita(Paciente paciente, Medico medico,char delimiter) {
 		super();
-		id=1;
+		this.id=generarId();
 		this.paciente = paciente;
 		this.medico = medico;
 		this.delimiter=delimiter;
@@ -40,9 +40,12 @@ public class Cita {
 	public void setId(int id) {
 		this.id = id;
 	}
+    private int generarId() {
+        return (int)(Math.random() * 900000) + 100000; // 6 digitos
+    }
 	@Override
 	public String toString() {
-		return  getId()+ delimiter + medico.getCodigo() + delimiter + medico.getNombre()+ delimiter +medico.getEspecialidad()+ delimiter +paciente.getIdentificacion()+ delimiter +paciente.getNombre()+ delimiter +paciente.getEnfermedad() ;
+		return  id + ""+delimiter + medico.getCodigo() + delimiter + medico.getNombre()+ delimiter +medico.getEspecialidad()+ delimiter +paciente.getIdentificacion()+ delimiter +paciente.getNombre()+ delimiter +paciente.getEnfermedad().getNombreEnfermedad()+delimiter+paciente.activo(paciente.isActivo());
 	}
 	
 	
