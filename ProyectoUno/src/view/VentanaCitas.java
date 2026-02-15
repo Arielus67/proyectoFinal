@@ -16,6 +16,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 public class VentanaCitas extends JFrame {
 
@@ -31,6 +32,8 @@ public class VentanaCitas extends JFrame {
 	public JButton btnCrearCita;
 	public JButton btnEliminar;
 	public JButton btnBuscar;
+	public JTextField txtBuscar;
+	public JButton btnModificar;
 
 	public VentanaCitas() {
 		setBackground(Color.LIGHT_GRAY);
@@ -60,8 +63,21 @@ public class VentanaCitas extends JFrame {
 		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnBuscar.setBorder(null);
 		btnBuscar.setBackground(Color.WHITE);
-		btnBuscar.setBounds(237, 268, 110, 29);
+		btnBuscar.setBounds(10, 64, 110, 29);
 		panel.add(btnBuscar);
+		
+		txtBuscar = new JTextField();
+		txtBuscar.setBounds(145, 66, 116, 28);
+		panel.add(txtBuscar);
+		txtBuscar.setColumns(10);
+		
+		btnModificar = new JButton("Modificar");
+		btnModificar.setForeground(new Color(0, 102, 153));
+		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnModificar.setBorder(null);
+		btnModificar.setBackground(Color.WHITE);
+		btnModificar.setBounds(213, 268, 110, 29);
+		panel.add(btnModificar);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);

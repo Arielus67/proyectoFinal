@@ -1,3 +1,4 @@
 613122,M1D009,Andrés,Neurólogo,22334455,Diego,Colesterol alto
 255326,M1D008,Laura,Psiquiatra,11223344,Valeria,Infección,activo
 111304,M1D004,María,Dermatóloga,56789012,José,Diabetes,activo
+511487,M1D002,Ana,Pediatra,12345678,Luis,Tos,activo
