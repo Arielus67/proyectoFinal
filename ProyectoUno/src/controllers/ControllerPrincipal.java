@@ -33,6 +33,12 @@ public class ControllerPrincipal {
         	ControllerCita cc = new ControllerCita(this);
         	cc.start();
         });
+        
+        vp.btnExpedientes.addActionListener(e->{
+        	vp.close();
+        	ControllerExpedientes ce = new ControllerExpedientes(this);
+        	ce.start();
+        });
     }
 
     public void mostrarVentana() {

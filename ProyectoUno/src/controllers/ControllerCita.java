@@ -221,10 +221,6 @@ public class ControllerCita {
 	    }
 	}
 
-
-
-
-
 	private void initTableCitas() {
 		modelCitas = new DefaultTableModel();
 		modelCitas.addColumn("Id");

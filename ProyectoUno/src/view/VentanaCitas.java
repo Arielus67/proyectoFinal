@@ -63,11 +63,11 @@ public class VentanaCitas extends JFrame {
 		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnBuscar.setBorder(null);
 		btnBuscar.setBackground(Color.WHITE);
-		btnBuscar.setBounds(10, 64, 110, 29);
+		btnBuscar.setBounds(10, 67, 110, 29);
 		panel.add(btnBuscar);
 		
 		txtBuscar = new JTextField();
-		txtBuscar.setBounds(145, 66, 116, 28);
+		txtBuscar.setBounds(145, 69, 178, 28);
 		panel.add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
@@ -76,8 +76,22 @@ public class VentanaCitas extends JFrame {
 		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnModificar.setBorder(null);
 		btnModificar.setBackground(Color.WHITE);
-		btnModificar.setBounds(213, 268, 110, 29);
+		btnModificar.setBounds(135, 268, 110, 29);
 		panel.add(btnModificar);
+		
+		JLabel lblInformacion = new JLabel("Ingrese el codigo de la cita a buscar");
+		lblInformacion.setForeground(new Color(255, 255, 255));
+		lblInformacion.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblInformacion.setBounds(10, 28, 268, 14);
+		panel.add(lblInformacion);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(255, 268, 110, 29);
+		panel.add(btnEliminar);
+		btnEliminar.setForeground(new Color(0, 102, 153));
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnEliminar.setBorder(null);
+		btnEliminar.setBackground(new Color(255, 255, 255));
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
@@ -114,18 +128,10 @@ public class VentanaCitas extends JFrame {
 		scrollPane.setViewportView(tableCitas);
 		
 		JLabel lblCitas = new JLabel("Citas");
-		lblCitas.setBounds(10, 0, 135, 14);
+		lblCitas.setBounds(10, 10, 135, 14);
 		panel_2.add(lblCitas);
 		lblCitas.setForeground(new Color(0, 102, 153));
 		lblCitas.setFont(new Font("Tahoma", Font.BOLD, 13));
-		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setForeground(Color.WHITE);
-		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnEliminar.setBorder(null);
-		btnEliminar.setBackground(new Color(0, 102, 153));
-		btnEliminar.setBounds(10, 288, 110, 29);
-		panel_2.add(btnEliminar);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(255, 255, 255));

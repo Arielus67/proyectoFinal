@@ -61,7 +61,7 @@ public class VentanaMedicos extends JFrame {
 		panel.setLayout(null);
 
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(27, 30, 95, 25);
+		btnAgregar.setBounds(31, 31, 95, 27);
 		panel.add(btnAgregar);
 		btnAgregar.setForeground(new Color(0, 102, 153));
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -69,7 +69,7 @@ public class VentanaMedicos extends JFrame {
 		btnAgregar.setBackground(new Color(255, 255, 255));
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(608, 30, 95, 25);
+		btnVolver.setBounds(602, 32, 95, 25);
 		panel.add(btnVolver);
 		btnVolver.setForeground(new Color(0, 102, 153));
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -77,7 +77,7 @@ public class VentanaMedicos extends JFrame {
 		btnVolver.setBackground(Color.WHITE);
 
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(459, 34, 96, 25);
+		btnEliminar.setBounds(473, 32, 96, 25);
 		panel.add(btnEliminar);
 		btnEliminar.setForeground(new Color(0, 102, 153));
 		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -85,7 +85,7 @@ public class VentanaMedicos extends JFrame {
 		btnEliminar.setBackground(Color.WHITE);
 
 		btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(319, 32, 95, 25);
+		btnLimpiar.setBounds(330, 32, 95, 25);
 		panel.add(btnLimpiar);
 		btnLimpiar.setForeground(new Color(0, 102, 153));
 		btnLimpiar.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -93,7 +93,7 @@ public class VentanaMedicos extends JFrame {
 		btnLimpiar.setBackground(Color.WHITE);
 
 		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(176, 31, 95, 25);
+		btnModificar.setBounds(181, 31, 95, 27);
 		panel.add(btnModificar);
 		btnModificar.setForeground(new Color(0, 102, 153));
 		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -114,14 +114,16 @@ public class VentanaMedicos extends JFrame {
 		panel_1.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblNewLabel_1.setBounds(10, 39, 63, 14);
 		panel_1.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_1_2 = new JLabel("Edad:");
-		lblNewLabel_1_2.setBounds(309, 39, 38, 14);
+		lblNewLabel_1_2.setBounds(347, 40, 38, 14);
 		panel_1.add(lblNewLabel_1_2);
 
 		JLabel lblNewLabel_1_1 = new JLabel("Codigo:");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblNewLabel_1_1.setBounds(10, 84, 46, 14);
 		panel_1.add(lblNewLabel_1_1);
 
@@ -141,7 +143,7 @@ public class VentanaMedicos extends JFrame {
 
 		txtEdad = new JTextField();
 		txtEdad.setColumns(10);
-		txtEdad.setBounds(395, 36, 126, 20);
+		txtEdad.setBounds(395, 38, 126, 20);
 		panel_1.add(txtEdad);
 
 		JLabel lblNewLabel_1_3_1 = new JLabel("Especialidad:");
@@ -185,11 +187,13 @@ public class VentanaMedicos extends JFrame {
 		lblBuscarMedico = new JLabel("Buscar Medico");
 		lblBuscarMedico.setForeground(new Color(0, 102, 153));
 		lblBuscarMedico.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblBuscarMedico.setBounds(4, 6, 175, 28);
+		lblBuscarMedico.setBounds(10, 10, 175, 28);
 		panel_2.add(lblBuscarMedico);
 
 		lblNewLabel_1_4 = new JLabel("Buscar: ");
-		lblNewLabel_1_4.setBounds(5, 65, 53, 14);
+		lblNewLabel_1_4.setForeground(new Color(0, 102, 153));
+		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_1_4.setBounds(10, 63, 53, 14);
 		panel_2.add(lblNewLabel_1_4);
 
 		txtBuscar = new JTextField();
