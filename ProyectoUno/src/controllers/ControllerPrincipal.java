@@ -39,6 +39,12 @@ public class ControllerPrincipal {
         	ControllerExpedientes ce = new ControllerExpedientes(this);
         	ce.start();
         });
+        
+        vp.btnReportes.addActionListener(e->{
+        	vp.close();
+        	ControllerReportes cr = new ControllerReportes(this);
+        	cr.start();
+        });
     }
 
     public void mostrarVentana() {

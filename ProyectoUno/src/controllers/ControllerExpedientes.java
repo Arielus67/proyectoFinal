@@ -58,6 +58,7 @@ public class ControllerExpedientes {
 		modelExpediente.addColumn("Nombre");
 		modelExpediente.addColumn("Enfermedad");
 		modelExpediente.addColumn("Activo");
+		modelExpediente.addColumn("Estado");
 		
 		ve.tableExpediente.setModel(modelExpediente);
 		

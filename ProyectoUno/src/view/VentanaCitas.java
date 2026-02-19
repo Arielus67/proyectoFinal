@@ -34,6 +34,7 @@ public class VentanaCitas extends JFrame {
 	public JButton btnBuscar;
 	public JTextField txtBuscar;
 	public JButton btnModificar;
+	public JComboBox cbxEstado;
 
 	public VentanaCitas() {
 		setBackground(Color.LIGHT_GRAY);
@@ -164,8 +165,19 @@ public class VentanaCitas extends JFrame {
 		btnCrearCita.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCrearCita.setBorder(null);
 		btnCrearCita.setBackground(new Color(0, 102, 153));
-		btnCrearCita.setBounds(44, 22, 110, 29);
+		btnCrearCita.setBounds(24, 23, 110, 29);
 		panel_4.add(btnCrearCita);
+		
+		cbxEstado = new JComboBox();
+		cbxEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
+		cbxEstado.setForeground(new Color(255, 255, 255));
+		cbxEstado.setBackground(new Color(0, 102, 152));
+		cbxEstado.setBounds(179, 23, 110, 29);
+		panel_4.add(cbxEstado);
+		
+		cbxEstado.addItem("Atendida");
+		cbxEstado.addItem("Pendiente");
+		cbxEstado.addItem("Cancelada");
 
 	}
 	public void init() {

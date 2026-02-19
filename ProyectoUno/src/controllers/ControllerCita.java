@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import models.Archivo;
 import models.Cita;
 import models.Enfermedad;
+import models.EstadoCita;
 import models.Medico;
 import models.Paciente;
 import view.VentanaCitas;
@@ -85,11 +86,14 @@ public class ControllerCita {
 			String enfermedad = modelPacientes.getValueAt(getPaciente, 5).toString();
 			int gravedad = Integer.parseInt(modelPacientes.getValueAt(getPaciente, 6).toString());
 			
+			String estadoTexto = vc.cbxEstado.getSelectedItem().toString();
+			EstadoCita estado = EstadoCita.valueOf(estadoTexto.toUpperCase());
+			
 			Enfermedad en = new Enfermedad(enfermedad, gravedad, DELIMITER);
 			Paciente p = new Paciente(identificacion, nombrePaciente, edadPaciente, sexoPaciente, telefonoPaciente, en, true,DELIMITER);
 			Medico m = new Medico(codigoMedico, nombreMedico, edadMedico, sexoMedico, especialidad, DELIMITER);
-				
-			Cita cita = new Cita(p, m, DELIMITER);
+			
+			Cita cita = new Cita(p, m,estado, DELIMITER);
 		
 			archivoCitas.add(cita.toString());
 			
@@ -197,6 +201,9 @@ public class ControllerCita {
 	        String enfermedad = modelPacientes.getValueAt(rowPaciente, 5).toString();
 	        int gravedad = Integer.parseInt(modelPacientes.getValueAt(rowPaciente, 6).toString());
 
+	        String estadoTexto = vc.cbxEstado.getSelectedItem().toString();
+			EstadoCita estado = EstadoCita.valueOf(estadoTexto.toUpperCase());
+	        
 	        Enfermedad en = new Enfermedad(enfermedad, gravedad, DELIMITER);
 	        Paciente p = new Paciente(identificacion, nombrePaciente, edadPaciente,
 	                sexoPaciente, telefonoPaciente, en, true, DELIMITER);
@@ -204,7 +211,7 @@ public class ControllerCita {
 	        Medico m = new Medico(codigoMedico, nombreMedico, edadMedico,
 	                sexoMedico, especialidad, DELIMITER);
 
-	        Cita nuevaCita = new Cita(p, m, DELIMITER);
+	        Cita nuevaCita = new Cita(p, m, estado, DELIMITER);
 
 	        archivoCitas.update(id, nuevaCita.toString());
 
@@ -231,6 +238,7 @@ public class ControllerCita {
 		modelCitas.addColumn("Nombre");
 		modelCitas.addColumn("Enfermedad");
 		modelCitas.addColumn("Activo");
+		modelCitas.addColumn("Estado");
 		
 		vc.tableCitas.setModel(modelCitas);
 		
