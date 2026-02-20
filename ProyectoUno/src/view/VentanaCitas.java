@@ -34,11 +34,12 @@ public class VentanaCitas extends JFrame {
 	public JButton btnBuscar;
 	public JTextField txtBuscar;
 	public JButton btnModificar;
+	public JComboBox cbxEstado;
 
 	public VentanaCitas() {
 		setBackground(Color.LIGHT_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 907, 713);
+		setBounds(100, 100, 1100, 713);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -63,11 +64,11 @@ public class VentanaCitas extends JFrame {
 		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnBuscar.setBorder(null);
 		btnBuscar.setBackground(Color.WHITE);
-		btnBuscar.setBounds(10, 64, 110, 29);
+		btnBuscar.setBounds(10, 67, 110, 29);
 		panel.add(btnBuscar);
 		
 		txtBuscar = new JTextField();
-		txtBuscar.setBounds(145, 66, 116, 28);
+		txtBuscar.setBounds(145, 69, 178, 28);
 		panel.add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
@@ -76,12 +77,26 @@ public class VentanaCitas extends JFrame {
 		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnModificar.setBorder(null);
 		btnModificar.setBackground(Color.WHITE);
-		btnModificar.setBounds(213, 268, 110, 29);
+		btnModificar.setBounds(135, 268, 110, 29);
 		panel.add(btnModificar);
+		
+		JLabel lblInformacion = new JLabel("Ingrese el codigo de la cita a buscar");
+		lblInformacion.setForeground(new Color(255, 255, 255));
+		lblInformacion.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblInformacion.setBounds(10, 28, 268, 14);
+		panel.add(lblInformacion);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(255, 268, 110, 29);
+		panel.add(btnEliminar);
+		btnEliminar.setForeground(new Color(0, 102, 153));
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnEliminar.setBorder(null);
+		btnEliminar.setBackground(new Color(255, 255, 255));
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(395, 11, 486, 320);
+		panel_1.setBounds(543, 11, 531, 320);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -92,7 +107,7 @@ public class VentanaCitas extends JFrame {
 		lblPacientes.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 36, 486, 273);
+		scrollPane_1.setBounds(10, 36, 589, 273);
 		panel_1.add(scrollPane_1);
 		
 		modeloPacientes = new DefaultTableModel();
@@ -101,12 +116,12 @@ public class VentanaCitas extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(395, 342, 486, 328);
+		panel_2.setBounds(395, 342, 679, 328);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 25, 486, 251);
+		scrollPane.setBounds(0, 25, 669, 292);
 		panel_2.add(scrollPane);
 		
 		modeloCitas = new DefaultTableModel();
@@ -114,22 +129,14 @@ public class VentanaCitas extends JFrame {
 		scrollPane.setViewportView(tableCitas);
 		
 		JLabel lblCitas = new JLabel("Citas");
-		lblCitas.setBounds(10, 0, 135, 14);
+		lblCitas.setBounds(10, 10, 135, 14);
 		panel_2.add(lblCitas);
 		lblCitas.setForeground(new Color(0, 102, 153));
 		lblCitas.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setForeground(Color.WHITE);
-		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnEliminar.setBorder(null);
-		btnEliminar.setBackground(new Color(0, 102, 153));
-		btnEliminar.setBounds(10, 288, 110, 29);
-		panel_2.add(btnEliminar);
-		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(255, 255, 255));
-		panel_3.setBounds(10, 11, 375, 262);
+		panel_3.setBounds(10, 11, 523, 262);
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 		
@@ -140,7 +147,7 @@ public class VentanaCitas extends JFrame {
 		lblMedicos.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 36, 375, 225);
+		scrollPane_2.setBounds(0, 36, 513, 225);
 		panel_3.add(scrollPane_2);
 		
 		modeloMedicos = new DefaultTableModel();
@@ -149,7 +156,7 @@ public class VentanaCitas extends JFrame {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(Color.WHITE);
-		panel_4.setBounds(11, 277, 375, 62);
+		panel_4.setBounds(11, 277, 522, 62);
 		contentPane.add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -158,8 +165,19 @@ public class VentanaCitas extends JFrame {
 		btnCrearCita.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCrearCita.setBorder(null);
 		btnCrearCita.setBackground(new Color(0, 102, 153));
-		btnCrearCita.setBounds(44, 22, 110, 29);
+		btnCrearCita.setBounds(24, 23, 110, 29);
 		panel_4.add(btnCrearCita);
+		
+		cbxEstado = new JComboBox();
+		cbxEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
+		cbxEstado.setForeground(new Color(255, 255, 255));
+		cbxEstado.setBackground(new Color(0, 102, 152));
+		cbxEstado.setBounds(179, 23, 110, 29);
+		panel_4.add(cbxEstado);
+		
+		cbxEstado.addItem("Atendida");
+		cbxEstado.addItem("Pendiente");
+		cbxEstado.addItem("Cancelada");
 
 	}
 	public void init() {

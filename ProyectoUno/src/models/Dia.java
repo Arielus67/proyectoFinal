@@ -1,14 +1,19 @@
 package models;
 
+import java.util.Arrays;
+
 public class Dia {
 
 	private String dia;
-	private String hora;
+	private int desde;
+	private int hasta;
 	private char delimiter;
-	public Dia(String dia, String hora, char delimiter) {
+
+	public Dia(String dia, int desde, int hasta, char delimiter) {
 		super();
 		this.dia = dia;
-		this.hora = hora;
+		this.desde = desde;
+		this.hasta = hasta;
 		this.delimiter = delimiter;
 	}
 	public String getDia() {
@@ -17,22 +22,29 @@ public class Dia {
 	public void setDia(String dia) {
 		this.dia = dia;
 	}
-	public String getHora() {
-		return hora;
-	}
-	public void setHora(String hora) {
-		this.hora = hora;
-	}
 	public char getDelimiter() {
 		return delimiter;
 	}
 	public void setDelimiter(char delimiter) {
 		this.delimiter = delimiter;
 	}
+	public int getDesde() {
+		return desde;
+	}
+	public void setDesde(int desde) {
+		this.desde = desde;
+	}
+	public int getHasta() {
+		return hasta;
+	}
+	public void setHasta(int hasta) {
+		this.hasta = hasta;
+	}
 	@Override
 	public String toString() {
-		return dia + ""+ delimiter + "" + hora;
+		return dia + ""+delimiter + desde + ":00"+delimiter+ hasta+":00";
 	}
+
 	
 	
 }

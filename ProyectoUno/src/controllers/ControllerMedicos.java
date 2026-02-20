@@ -2,9 +2,12 @@ package controllers;
 
 import java.io.IOException;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Archivo;
+import models.Dia;
+import models.Horario;
 import models.Medico;
 import view.VentanaMedicos;
 
@@ -29,7 +32,6 @@ public class ControllerMedicos {
 	public void start() {
 		vm.init();
 	}
-
 	private void initTable() {
 		model = new DefaultTableModel();
 		model.addColumn("Codigo");
@@ -37,6 +39,9 @@ public class ControllerMedicos {
 		model.addColumn("Edad");
 		model.addColumn("Sexo");
 		model.addColumn("Especialidad");
+		model.addColumn("Dias");
+		model.addColumn("Desde");
+		model.addColumn("Hasta");
 
 		vm.table.setModel(model);
 	}
@@ -67,7 +72,10 @@ public class ControllerMedicos {
 			String sexoTxt = vm.rdbtnMasculino.isSelected() ? "Masculino" : "Femenino";
 			String codigo = vm.txtCodigo.getText();
 			String especialidad = vm.txtEspecialidad.getText();
-
+			int desde = Integer.parseInt(vm.txtDesde.getText());
+			int hasta = Integer.parseInt(vm.txtHasta.getText());
+			String dias = getDiasSeleccionados();
+			
 			if (!nombre.isEmpty() && !edadTxt.isEmpty() && !sexoTxt.isEmpty() && !codigo.isEmpty()
 					&& !especialidad.isEmpty()) {
 				
@@ -77,8 +85,11 @@ public class ControllerMedicos {
 				}
 				int edad = Integer.parseInt(edadTxt);
 				char sexo = sexoTxt.charAt(0);
-
-				Medico m = new Medico(codigo, nombre, edad, sexo, especialidad, DELIMITER);
+				
+				
+				Dia dia = new Dia(dias, desde, hasta, DELIMITER);
+				Horario h = new Horario(dia, DELIMITER);
+				Medico m = new Medico(codigo, nombre, edad, sexo, especialidad, h ,DELIMITER);
 
 				archivo.add(m.toString());
 				clear();
@@ -93,6 +104,20 @@ public class ControllerMedicos {
 			JOptionPane.showMessageDialog(null, "Error al agregar al Medico");
 		}
 
+	}
+	private String getDiasSeleccionados() {
+
+	    String dias = "";
+
+	    if (vm.chckbxLunes.isSelected()) dias += "Lunes-";
+	    if (vm.chckbxMartess.isSelected()) dias += "Martes-";
+	    if (vm.chckbxMiercoles.isSelected()) dias += "Miercoles-";
+	    if (vm.chckbxJueves.isSelected()) dias += "Jueves-";
+	    if (vm.chckbxViernes.isSelected()) dias += "Viernes-";
+	    if (vm.chckbxSabado.isSelected()) dias += "Sabado-";
+	    if (vm.chckbxDomingo.isSelected()) dias += "Domingo-";
+
+	    return dias;
 	}
 	private void delete() {
 		try {
@@ -144,8 +169,13 @@ public class ControllerMedicos {
 			int edad = Integer.parseInt(vm.txtEdad.getText());
 			char genero = vm.rdbtnMasculino.isSelected() ? "Masculino".charAt(0) : "Femenino".charAt(0);
 			String especialidad = vm.txtEspecialidad.getText();
+			int desde = Integer.parseInt(vm.txtDesde.getText());
+			int hasta = Integer.parseInt(vm.txtHasta.getText());
+			String dias = getDiasSeleccionados();
 			
-			Medico m = new Medico(codigo, nombre, edad, genero, especialidad, DELIMITER);
+			Dia dia = new Dia(dias, desde, hasta, DELIMITER);
+			Horario h = new Horario(dia, DELIMITER);
+			Medico m = new Medico(codigo, nombre, edad, genero, especialidad, h ,DELIMITER);
 
 			archivo.update(codigo, m.toString());
 

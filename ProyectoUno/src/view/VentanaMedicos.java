@@ -5,26 +5,18 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-
 import javax.swing.JButton;
 import java.awt.Font;
-import java.awt.ScrollPane;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.JTextArea;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
-import javax.swing.JList;
 import javax.swing.JComboBox;
 
 public class VentanaMedicos extends JFrame {
@@ -54,23 +46,13 @@ public class VentanaMedicos extends JFrame {
 	public JCheckBox chckbxViernes;
 	public JCheckBox chckbxSabado;
 	public JCheckBox chckbxDomingo;
-	String[] horas = {
-		    "08:00",
-		    "09:00",
-		    "10:00",
-		    "11:00",
-		    "12:00",
-		    "13:00",
-		    "14:00",
-		    "15:00",
-		    "16:00",
-		    "17:00"
-		};
+	public JTextField txtDesde;
+	public JTextField txtHasta;
 
 
 	public VentanaMedicos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 870, 548);
+		setBounds(100, 100, 935, 548);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -79,12 +61,12 @@ public class VentanaMedicos extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 102, 153));
-		panel.setBounds(6, 175, 838, 75);
+		panel.setBounds(6, 175, 903, 75);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(61, 30, 95, 25);
+		btnAgregar.setBounds(147, 30, 95, 25);
 		panel.add(btnAgregar);
 		btnAgregar.setForeground(new Color(0, 102, 153));
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -92,7 +74,7 @@ public class VentanaMedicos extends JFrame {
 		btnAgregar.setBackground(new Color(255, 255, 255));
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(654, 30, 95, 25);
+		btnVolver.setBounds(679, 30, 95, 25);
 		panel.add(btnVolver);
 		btnVolver.setForeground(new Color(0, 102, 153));
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -100,7 +82,7 @@ public class VentanaMedicos extends JFrame {
 		btnVolver.setBackground(Color.WHITE);
 
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(486, 30, 96, 25);
+		btnEliminar.setBounds(542, 30, 96, 25);
 		panel.add(btnEliminar);
 		btnEliminar.setForeground(new Color(0, 102, 153));
 		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -108,7 +90,7 @@ public class VentanaMedicos extends JFrame {
 		btnEliminar.setBackground(Color.WHITE);
 
 		btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(327, 30, 95, 25);
+		btnLimpiar.setBounds(407, 30, 95, 25);
 		panel.add(btnLimpiar);
 		btnLimpiar.setForeground(new Color(0, 102, 153));
 		btnLimpiar.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -116,7 +98,7 @@ public class VentanaMedicos extends JFrame {
 		btnLimpiar.setBackground(Color.WHITE);
 
 		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(194, 30, 95, 25);
+		btnModificar.setBounds(273, 30, 95, 25);
 		panel.add(btnModificar);
 		btnModificar.setForeground(new Color(0, 102, 153));
 		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -126,7 +108,7 @@ public class VentanaMedicos extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(null);
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(6, 11, 838, 165);
+		panel_1.setBounds(6, 11, 903, 165);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
@@ -229,14 +211,6 @@ public class VentanaMedicos extends JFrame {
 		lblNewLabel_1_2_2.setBounds(647, 8, 101, 14);
 		panel_1.add(lblNewLabel_1_2_2);
 		
-		JComboBox comboBoxDesde = new JComboBox();
-		comboBoxDesde.setBounds(630, 57, 118, 22);
-		panel_1.add(comboBoxDesde);
-		
-		JComboBox comboBoxHasta = new JComboBox();
-		comboBoxHasta.setBounds(630, 116, 118, 22);
-		panel_1.add(comboBoxHasta);
-		
 		JLabel lblNewLabel_1_2_2_1 = new JLabel("Desde:");
 		lblNewLabel_1_2_2_1.setBounds(630, 39, 101, 14);
 		panel_1.add(lblNewLabel_1_2_2_1);
@@ -244,17 +218,27 @@ public class VentanaMedicos extends JFrame {
 		JLabel lblNewLabel_1_2_2_1_1 = new JLabel("Hasta:");
 		lblNewLabel_1_2_2_1_1.setBounds(630, 100, 101, 14);
 		panel_1.add(lblNewLabel_1_2_2_1_1);
+		
+		txtDesde = new JTextField();
+		txtDesde.setColumns(10);
+		txtDesde.setBounds(630, 58, 126, 20);
+		panel_1.add(txtDesde);
+		
+		txtHasta = new JTextField();
+		txtHasta.setColumns(10);
+		txtHasta.setBounds(630, 121, 126, 20);
+		panel_1.add(txtHasta);
 				
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setBackground(Color.LIGHT_GRAY);
-		panel_1_1.setBounds(253, 252, 591, 254);
+		panel_1_1.setBounds(253, 252, 656, 254);
 		contentPane.add(panel_1_1);
 
 		modelo = new DefaultTableModel();
 		panel_1_1.setLayout(null);
 		table = new JTable(modelo);
 		JScrollPane scroll = new JScrollPane(table);
-		scroll.setBounds(4, 5, 587, 246);
+		scroll.setBounds(4, 5, 652, 246);
 
 		panel_1_1.add(scroll);
 

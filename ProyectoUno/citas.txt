@@ -1,4 +1,14 @@
-613122,M1D009,Andrés,Neurólogo,22334455,Diego,Colesterol alto
+622822,M1D012,Paula,Nutricionista,22334455,Diego,Colesterol alto,activo,CANCELADA
 255326,M1D008,Laura,Psiquiatra,11223344,Valeria,Infección,activo
 111304,M1D004,María,Dermatóloga,56789012,José,Diabetes,activo
 511487,M1D002,Ana,Pediatra,12345678,Luis,Tos,activo
+385225,M1D004,María,Dermatóloga,12345678,Luis,Tos,activo
+912106,M1D004,María,Dermatóloga,67890123,Sofía,Asma,activo
+274871,M1D004,María,Dermatóloga,66778899,Esteban,Gastritis,activo
+282741,M1D009,Andrés,Neurólogo,45678901,María,Dolor de cabeza,activo
+755419,M1D012,Paula,Nutricionista,45678901,María,Dolor de cabeza,activo
+962248,M1D017,Fernando,Anestesiólogo,45678901,María,Dolor de cabeza,activo
+110694,M1D018,Lucía,Hematóloga,45678901,María,Dolor de cabeza,activo
+595062,M1D004,María,Dermatóloga,33445566,Paula,Anemia,activo,null
+140575,M1D012,Paula,Nutricionista,66778899,Esteban,Gastritis,activo,ATENDIDA
+890022,M1D009,Andrés,Neurólogo,89012345,Laura,Alergia,activo,CANCELADA

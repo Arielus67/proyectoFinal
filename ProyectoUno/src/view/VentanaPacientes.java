@@ -145,35 +145,40 @@ public class VentanaPacientes extends JFrame {
 		panel_1_1.setLayout(null);
 
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(10, 21, 104, 30);
+		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnGuardar.setBounds(26, 21, 104, 30);
 		panel_1_1.add(btnGuardar);
 		btnGuardar.setBorder(null);
 		btnGuardar.setForeground(Color.WHITE);
 		btnGuardar.setBackground(new Color(0, 102, 153));
 
 		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(162, 21, 104, 30);
+		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnModificar.setBounds(175, 21, 104, 30);
 		panel_1_1.add(btnModificar);
 		btnModificar.setForeground(new Color(255, 255, 255));
 		btnModificar.setBorder(null);
 		btnModificar.setBackground(new Color(0, 102, 153));
 
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(327, 21, 104, 30);
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnEliminar.setBounds(337, 21, 104, 30);
 		panel_1_1.add(btnEliminar);
 		btnEliminar.setForeground(new Color(255, 255, 255));
 		btnEliminar.setBorder(null);
 		btnEliminar.setBackground(new Color(0, 102, 153));
 
 		btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(475, 21, 104, 30);
+		btnLimpiar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnLimpiar.setBounds(500, 21, 104, 30);
 		panel_1_1.add(btnLimpiar);
 		btnLimpiar.setForeground(new Color(255, 255, 255));
 		btnLimpiar.setBorder(null);
 		btnLimpiar.setBackground(new Color(0, 102, 153));
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(649, 21, 104, 30);
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVolver.setBounds(657, 21, 104, 30);
 		panel_1_1.add(btnVolver);
 		btnVolver.setForeground(new Color(255, 255, 255));
 		btnVolver.setBorder(null);
@@ -209,10 +214,13 @@ public class VentanaPacientes extends JFrame {
 		panel.add(txtBuscar);
 
 		JLabel lblNewLabel_1_3_1 = new JLabel("Buscar:");
+		lblNewLabel_1_3_1.setForeground(new Color(0, 102, 153));
+		lblNewLabel_1_3_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_1_3_1.setBounds(10, 53, 57, 14);
 		panel.add(lblNewLabel_1_3_1);
 
 		btnConsultar = new JButton("Consultar");
+		btnConsultar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnConsultar.setBounds(66, 132, 104, 30);
 		panel.add(btnConsultar);
 		btnConsultar.setForeground(new Color(255, 255, 255));
