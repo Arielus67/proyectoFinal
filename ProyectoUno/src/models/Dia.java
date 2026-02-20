@@ -3,9 +3,9 @@ package models;
 public class Dia {
 
 	private String dia;
-	private int hora;
+	private String hora;
 	private char delimiter;
-	public Dia(String dia, int hora, char delimiter) {
+	public Dia(String dia, String hora, char delimiter) {
 		super();
 		this.dia = dia;
 		this.hora = hora;
@@ -17,10 +17,10 @@ public class Dia {
 	public void setDia(String dia) {
 		this.dia = dia;
 	}
-	public int getHora() {
+	public String getHora() {
 		return hora;
 	}
-	public void setHora(int hora) {
+	public void setHora(String hora) {
 		this.hora = hora;
 	}
 	public char getDelimiter() {

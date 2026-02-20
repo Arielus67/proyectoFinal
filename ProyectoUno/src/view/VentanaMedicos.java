@@ -25,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
+import javax.swing.JComboBox;
 
 public class VentanaMedicos extends JFrame {
 
@@ -227,6 +228,22 @@ public class VentanaMedicos extends JFrame {
 		JLabel lblNewLabel_1_2_2 = new JLabel("Rango de Horas:");
 		lblNewLabel_1_2_2.setBounds(647, 8, 101, 14);
 		panel_1.add(lblNewLabel_1_2_2);
+		
+		JComboBox comboBoxDesde = new JComboBox();
+		comboBoxDesde.setBounds(630, 57, 118, 22);
+		panel_1.add(comboBoxDesde);
+		
+		JComboBox comboBoxHasta = new JComboBox();
+		comboBoxHasta.setBounds(630, 116, 118, 22);
+		panel_1.add(comboBoxHasta);
+		
+		JLabel lblNewLabel_1_2_2_1 = new JLabel("Desde:");
+		lblNewLabel_1_2_2_1.setBounds(630, 39, 101, 14);
+		panel_1.add(lblNewLabel_1_2_2_1);
+		
+		JLabel lblNewLabel_1_2_2_1_1 = new JLabel("Hasta:");
+		lblNewLabel_1_2_2_1_1.setBounds(630, 100, 101, 14);
+		panel_1.add(lblNewLabel_1_2_2_1_1);
 				
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setBackground(Color.LIGHT_GRAY);
