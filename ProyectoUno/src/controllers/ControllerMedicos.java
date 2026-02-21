@@ -194,6 +194,15 @@ public class ControllerMedicos {
 		vm.rdbtnFemenino.setSelected(false);
 		vm.txtCodigo.setText("");
 		vm.txtEspecialidad.setText("");
+		vm.chckbxLunes.setSelected(false);
+	    vm.chckbxMartess.setSelected(false);
+	    vm.chckbxMiercoles.setSelected(false);
+	    vm.chckbxJueves.setSelected(false);
+	    vm.chckbxViernes.setSelected(false);
+	    vm.chckbxSabado.setSelected(false);
+	    vm.chckbxDomingo.setSelected(false);
+	    vm.txtDesde.setText("");
+	    vm.txtHasta.setText("");
 
 	}
 	private void loadTable() {

@@ -35,6 +35,7 @@ public class VentanaCitas extends JFrame {
 	public JTextField txtBuscar;
 	public JButton btnModificar;
 	public JComboBox cbxEstado;
+	public JComboBox cbxHorasDisponibles;
 
 	public VentanaCitas() {
 		setBackground(Color.LIGHT_GRAY);
@@ -172,12 +173,22 @@ public class VentanaCitas extends JFrame {
 		cbxEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
 		cbxEstado.setForeground(new Color(255, 255, 255));
 		cbxEstado.setBackground(new Color(0, 102, 152));
-		cbxEstado.setBounds(179, 23, 110, 29);
+		cbxEstado.setBounds(157, 23, 110, 29);
 		panel_4.add(cbxEstado);
 		
 		cbxEstado.addItem("Atendida");
 		cbxEstado.addItem("Pendiente");
 		cbxEstado.addItem("Cancelada");
+		
+		JLabel lblHora = new JLabel("Hora:");
+		lblHora.setForeground(new Color(0, 102, 153));
+		lblHora.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblHora.setBounds(317, 30, 46, 14);
+		panel_4.add(lblHora);
+		
+		cbxHorasDisponibles = new JComboBox();
+		cbxHorasDisponibles.setBounds(373, 27, 110, 22);
+		panel_4.add(cbxHorasDisponibles);
 
 	}
 	public void init() {

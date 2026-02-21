@@ -42,7 +42,7 @@ public class Dia {
 	}
 	@Override
 	public String toString() {
-		return dia + ""+delimiter + desde + ":00"+delimiter+ hasta+":00";
+		return dia + ""+delimiter + desde + ""+delimiter+ hasta+"";
 	}
 
 	

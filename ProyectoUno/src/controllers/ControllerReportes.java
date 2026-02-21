@@ -167,7 +167,13 @@ public class ControllerReportes {
 	        e.printStackTrace();
 	    }
 	}
-	
+	private void loadCitasPorMedicos() {
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	private void loadTableMedicosOrdenados() {
 	    try {
 

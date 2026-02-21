@@ -111,5 +111,26 @@ public class Archivo {
 
 		return false;
 	}
+	public boolean dontRepeatCita(String id, int hora) throws IOException {
+
+		id = id.trim();
+		String horas = hora+"";
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+
+			String linea;
+
+			while ((linea = br.readLine()) != null) {
+
+				String[] datos = linea.split(String.valueOf(delimiter));
+
+				if (datos.length > 0 && datos[1].trim().equals(id) && datos[7].trim().equals(horas)) {
+					
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
 
 }

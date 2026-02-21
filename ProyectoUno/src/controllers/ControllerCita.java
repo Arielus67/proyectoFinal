@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,41 +26,44 @@ public class ControllerCita {
 	private final char DELIMITER = ',';
 
 	public ControllerCita(ControllerPrincipal controllerPrincipal) {
-		
+
 		this.vc = new VentanaCitas();
 		this.controllerPrincipal = controllerPrincipal;
 		this.archivoCitas = new Archivo("citas.txt", DELIMITER);
 		this.archivoMedicos = new Archivo("medicos.txt", DELIMITER);
 		this.archivoPacientes = new Archivo("pacientes.txt", DELIMITER);
-		
+
 		funtions();
 		initTableCitas();
 		initTableMedico();
 		initTablePacientes();
 		loadTableCitas();
-		loadTableMedicos();
+		updateAvailableDoctors();
 		loadTablePacientes();
+		loadCbxCitas();
 
 	}
 
 	public void start() {
 		vc.init();
 	}
+
 	public void funtions() {
-		
-		vc.btnCrearCita.addActionListener(e->create());
-		
-		vc.btnEliminar.addActionListener(e->delete());
-		
-		vc.btnBuscar.addActionListener(e-> consultar());
-		
-		vc.btnModificar.addActionListener(e-> modificar());
-		
-		vc.btnVolver.addActionListener(e->{
+
+		vc.btnCrearCita.addActionListener(e -> create());
+
+		vc.btnEliminar.addActionListener(e -> delete());
+
+		vc.btnBuscar.addActionListener(e -> consultar());
+
+		vc.btnModificar.addActionListener(e -> modificar());
+
+		vc.btnVolver.addActionListener(e -> {
 			vc.close();
 			controllerPrincipal.mostrarVentana();
 		});
 	}
+
 	private void create() {
 		try {
 
@@ -77,7 +81,6 @@ public class ControllerCita {
 			char sexoMedico = modelMedicos.getValueAt(getMedico, 3).toString().charAt(0);
 			String especialidad = modelMedicos.getValueAt(getMedico, 4).toString();
 
-
 			String identificacion = modelPacientes.getValueAt(getPaciente, 0).toString();
 			String nombrePaciente = modelPacientes.getValueAt(getPaciente, 1).toString();
 			int edadPaciente = Integer.parseInt(modelPacientes.getValueAt(getPaciente, 2).toString());
@@ -85,22 +88,31 @@ public class ControllerCita {
 			String telefonoPaciente = modelPacientes.getValueAt(getPaciente, 4).toString();
 			String enfermedad = modelPacientes.getValueAt(getPaciente, 5).toString();
 			int gravedad = Integer.parseInt(modelPacientes.getValueAt(getPaciente, 6).toString());
-			
+
 			String estadoTexto = vc.cbxEstado.getSelectedItem().toString();
 			EstadoCita estado = EstadoCita.valueOf(estadoTexto.toUpperCase());
 			
+			int horas = Integer.parseInt(vc.cbxHorasDisponibles.getSelectedItem().toString());
+
+			
+			
+			if(archivoCitas.dontRepeatCita(codigoMedico, horas)) {
+				JOptionPane.showMessageDialog(null, "Ya este medico tiene esa hora asignada");
+				return;
+			}
+			
 			Enfermedad en = new Enfermedad(enfermedad, gravedad, DELIMITER);
-			
-			
-			
-			
-			Paciente p = new Paciente(identificacion, nombrePaciente, edadPaciente, sexoPaciente, telefonoPaciente, en, true,DELIMITER);
+
+			Paciente p = new Paciente(identificacion, nombrePaciente, edadPaciente, sexoPaciente, telefonoPaciente, en,
+					true, DELIMITER);
 			Medico m = new Medico(codigoMedico, nombreMedico, edadMedico, sexoMedico, especialidad, DELIMITER);
 			
-			Cita cita = new Cita(p, m,estado, DELIMITER);
-		
-			archivoCitas.add(cita.toString());
+
+			Cita cita = new Cita(p, m, estado, DELIMITER);
+			cita.setHora(horas);
 			
+			archivoCitas.add(cita.toString());
+
 			JOptionPane.showMessageDialog(null, "Cita creada correctamente");
 
 			loadTableCitas();
@@ -109,6 +121,7 @@ public class ControllerCita {
 			JOptionPane.showMessageDialog(null, "Error al crear la cita: " + e);
 		}
 	}
+
 	private void delete() {
 		try {
 
@@ -131,105 +144,103 @@ public class ControllerCita {
 			JOptionPane.showMessageDialog(null, "Error al eliminar la cita " + e);
 		}
 	}
-	
+
 	private void consultar() {
-	    try {
+		try {
 
-	        String idBuscar = vc.txtBuscar.getText();
+			String idBuscar = vc.txtBuscar.getText();
 
-	        if (idBuscar == null || idBuscar.isEmpty()) {
-	            return;
-	        }
+			if (idBuscar == null || idBuscar.isEmpty()) {
+				return;
+			}
 
-	        String data = archivoCitas.getData();
+			String data = archivoCitas.getData();
 
-	        if (data == null || data.isEmpty()) {
-	            JOptionPane.showMessageDialog(null, "No hay citas registradas");
-	            return;
-	        }
+			if (data == null || data.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "No hay citas registradas");
+				return;
+			}
 
-	        String[] lines = data.split("\n");
+			String[] lines = data.split("\n");
 
-	        boolean encontrado = false;
+			boolean encontrado = false;
 
-	        modelCitas.setRowCount(0);
+			modelCitas.setRowCount(0);
 
-	        for (String line : lines) {
+			for (String line : lines) {
 
-	            String[] values = line.split(String.valueOf(DELIMITER));
+				String[] values = line.split(String.valueOf(DELIMITER));
 
-	            if (values[0].equals(idBuscar)) {
+				if (values[0].equals(idBuscar)) {
 
-	                modelCitas.addRow(values);
-	                encontrado = true;
-	                break;
-	            }
-	        }
+					modelCitas.addRow(values);
+					encontrado = true;
+					break;
+				}
+			}
 
-	        if (!encontrado) {
-	            JOptionPane.showMessageDialog(null, "Cita no encontrada");
-	            loadTableCitas();
-	        }
+			if (!encontrado) {
+				JOptionPane.showMessageDialog(null, "Cita no encontrada");
+				loadTableCitas();
+			}
 
-	    } catch (IOException e) {
-	        JOptionPane.showMessageDialog(null, "Error al consultar la cita: " + e);
-	    }
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error al consultar la cita: " + e);
+		}
 	}
-	
+
 	private void modificar() {
-	    try {
+		try {
 
-	        int rowCita = vc.tableCitas.getSelectedRow();
-	        int rowMedico = vc.tableMedicos.getSelectedRow();
-	        int rowPaciente = vc.tablePacientes.getSelectedRow();
+			int rowCita = vc.tableCitas.getSelectedRow();
+			int rowMedico = vc.tableMedicos.getSelectedRow();
+			int rowPaciente = vc.tablePacientes.getSelectedRow();
 
-	        if (rowCita == -1 || rowMedico == -1 || rowPaciente == -1) {
-	            JOptionPane.showMessageDialog(null,
-	                    "Seleccione una cita, un médico y un paciente");
-	            return;
-	        }
+			if (rowCita == -1 || rowMedico == -1 || rowPaciente == -1) {
+				JOptionPane.showMessageDialog(null, "Seleccione una cita, un médico y un paciente");
+				return;
+			}
 
-	        String id = modelCitas.getValueAt(rowCita, 0).toString();
+			String id = modelCitas.getValueAt(rowCita, 0).toString();
 
-	        String codigoMedico = modelMedicos.getValueAt(rowMedico, 0).toString();
-	        String nombreMedico = modelMedicos.getValueAt(rowMedico, 1).toString();
-	        int edadMedico = Integer.parseInt(modelMedicos.getValueAt(rowMedico, 2).toString());
-	        char sexoMedico = modelMedicos.getValueAt(rowMedico, 3).toString().charAt(0);
-	        String especialidad = modelMedicos.getValueAt(rowMedico, 4).toString();
+			String codigoMedico = modelMedicos.getValueAt(rowMedico, 0).toString();
+			String nombreMedico = modelMedicos.getValueAt(rowMedico, 1).toString();
+			int edadMedico = Integer.parseInt(modelMedicos.getValueAt(rowMedico, 2).toString());
+			char sexoMedico = modelMedicos.getValueAt(rowMedico, 3).toString().charAt(0);
+			String especialidad = modelMedicos.getValueAt(rowMedico, 4).toString();
 
-	        String identificacion = modelPacientes.getValueAt(rowPaciente, 0).toString();
-	        String nombrePaciente = modelPacientes.getValueAt(rowPaciente, 1).toString();
-	        int edadPaciente = Integer.parseInt(modelPacientes.getValueAt(rowPaciente, 2).toString());
-	        char sexoPaciente = modelPacientes.getValueAt(rowPaciente, 3).toString().charAt(0);
-	        String telefonoPaciente = modelPacientes.getValueAt(rowPaciente, 4).toString();
-	        String enfermedad = modelPacientes.getValueAt(rowPaciente, 5).toString();
-	        int gravedad = Integer.parseInt(modelPacientes.getValueAt(rowPaciente, 6).toString());
+			String identificacion = modelPacientes.getValueAt(rowPaciente, 0).toString();
+			String nombrePaciente = modelPacientes.getValueAt(rowPaciente, 1).toString();
+			int edadPaciente = Integer.parseInt(modelPacientes.getValueAt(rowPaciente, 2).toString());
+			char sexoPaciente = modelPacientes.getValueAt(rowPaciente, 3).toString().charAt(0);
+			String telefonoPaciente = modelPacientes.getValueAt(rowPaciente, 4).toString();
+			String enfermedad = modelPacientes.getValueAt(rowPaciente, 5).toString();
+			int gravedad = Integer.parseInt(modelPacientes.getValueAt(rowPaciente, 6).toString());
 
-	        String estadoTexto = vc.cbxEstado.getSelectedItem().toString();
+			String estadoTexto = vc.cbxEstado.getSelectedItem().toString();
 			EstadoCita estado = EstadoCita.valueOf(estadoTexto.toUpperCase());
-	        
-	        Enfermedad en = new Enfermedad(enfermedad, gravedad, DELIMITER);
-	        Paciente p = new Paciente(identificacion, nombrePaciente, edadPaciente,
-	                sexoPaciente, telefonoPaciente, en, true, DELIMITER);
 
-	        Medico m = new Medico(codigoMedico, nombreMedico, edadMedico,
-	                sexoMedico, especialidad, DELIMITER);
+			Enfermedad en = new Enfermedad(enfermedad, gravedad, DELIMITER);
+			Paciente p = new Paciente(identificacion, nombrePaciente, edadPaciente, sexoPaciente, telefonoPaciente, en,
+					true, DELIMITER);
 
-	        Cita nuevaCita = new Cita(p, m, estado, DELIMITER);
+			Medico m = new Medico(codigoMedico, nombreMedico, edadMedico, sexoMedico, especialidad, DELIMITER);
 
-	        archivoCitas.update(id, nuevaCita.toString());
+			Cita nuevaCita = new Cita(p, m, estado, DELIMITER);
 
-	        JOptionPane.showMessageDialog(null, "Cita modificada correctamente");
+			archivoCitas.update(id, nuevaCita.toString());
 
-	        loadTableCitas();
+			JOptionPane.showMessageDialog(null, "Cita modificada correctamente");
 
-	        vc.tableCitas.clearSelection();
-	        vc.tableMedicos.clearSelection();
-	        vc.tablePacientes.clearSelection();
+			loadTableCitas();
 
-	    } catch (IOException e) {
-	        JOptionPane.showMessageDialog(null, "Error al modificar la cita: " + e);
-	    }
+			vc.tableCitas.clearSelection();
+			vc.tableMedicos.clearSelection();
+			vc.tablePacientes.clearSelection();
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error al modificar la cita: " + e);
+		}
 	}
 
 	private void initTableCitas() {
@@ -241,12 +252,14 @@ public class ControllerCita {
 		modelCitas.addColumn("Identificacion");
 		modelCitas.addColumn("Nombre");
 		modelCitas.addColumn("Enfermedad");
+		modelCitas.addColumn("Hora");
 		modelCitas.addColumn("Activo");
 		modelCitas.addColumn("Estado");
-		
+
 		vc.tableCitas.setModel(modelCitas);
-		
+
 	}
+
 	private void initTableMedico() {
 		modelMedicos = new DefaultTableModel();
 		modelMedicos.addColumn("Codigo");
@@ -260,6 +273,7 @@ public class ControllerCita {
 
 		vc.tableMedicos.setModel(modelMedicos);
 	}
+
 	private void initTablePacientes() {
 		modelPacientes = new DefaultTableModel();
 		modelPacientes.addColumn("identificaion");
@@ -272,6 +286,7 @@ public class ControllerCita {
 
 		vc.tablePacientes.setModel(modelPacientes);
 	}
+
 	private void loadTableCitas() {
 		try {
 
@@ -292,6 +307,7 @@ public class ControllerCita {
 			e.printStackTrace();
 		}
 	}
+
 	private void loadTableMedicos() {
 		try {
 
@@ -312,6 +328,7 @@ public class ControllerCita {
 			e.printStackTrace();
 		}
 	}
+
 	private void loadTablePacientes() {
 		try {
 
@@ -332,4 +349,81 @@ public class ControllerCita {
 			e.printStackTrace();
 		}
 	}
+
+	private void updateAvailableDoctors() {
+		try {
+
+			int horas = 1;
+			modelMedicos.setRowCount(0);
+
+			String dataMedicos = archivoMedicos.getData();
+			String dataCitas = archivoCitas.getData();
+			boolean mostrar = false;
+
+			if (dataMedicos == null || dataMedicos.isEmpty())
+				return;
+
+			String[] linesMedicos = dataMedicos.split("\n");
+
+			if (!(vc.cbxHorasDisponibles.getSelectedItem() == null)) {
+				horas = Integer.parseInt(vc.cbxHorasDisponibles.getSelectedItem().toString());
+				
+			}
+			for (String line : linesMedicos) {
+				String[] values = line.split(String.valueOf(DELIMITER));
+				String idDoctor = values[0];
+				if (dataCitas == null || dataCitas.isEmpty()) {
+					if ((horas >= Integer.parseInt(values[6]) && horas <= Integer.parseInt(values[7]))) {
+
+						modelMedicos.addRow(values);
+					} else if (Integer.parseInt(values[6]) > Integer.parseInt(values[7])) {
+						if (horas >= Integer.parseInt(values[6])
+								|| (horas >= Integer.parseInt(values[6]) && horas >= 24) || horas == 1) {
+							modelMedicos.addRow(values);
+						}
+					}
+
+				} else {
+					String[] linesCitas = dataCitas.split("\n");
+					for (String citas : linesCitas) {
+						String[] valuesCitas = citas.split(String.valueOf(DELIMITER));
+
+						if ((horas >= Integer.parseInt(values[6]) && horas <= Integer.parseInt(values[7]))) {
+							if (!idDoctor.equals(valuesCitas[2])) {
+								mostrar = true;
+								break;
+							}
+
+						} else if (Integer.parseInt(values[6]) > Integer.parseInt(values[7])) {
+							if (horas >= Integer.parseInt(values[6])
+									|| (horas >= Integer.parseInt(values[6]) && horas >= 24) || horas == 1) {
+								if (!idDoctor.equals(valuesCitas[2])) {
+									mostrar = true;
+									break;
+								}
+							}
+						}
+
+					}
+					if (mostrar) {
+						modelMedicos.addRow(values);
+					}
+				}
+
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void loadCbxCitas() {
+		for (int i = 1; i < 25; i++) {
+			vc.cbxHorasDisponibles.addItem(i + "");
+		}
+		vc.cbxHorasDisponibles.addActionListener(e -> {
+			updateAvailableDoctors();
+		});
+	}
+
 }
