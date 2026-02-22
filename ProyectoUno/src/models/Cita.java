@@ -8,6 +8,7 @@ public class Cita {
 	private char delimiter;
 	private int id;
 	private int hora;
+	private String mes;
 	
 	public Cita(Paciente paciente, Medico medico, EstadoCita estado,char delimiter) {
 		super();
@@ -17,7 +18,7 @@ public class Cita {
 		this.estado = estado;
 		this.delimiter=delimiter;
 	}
-	public Cita(Paciente paciente, Medico medico, EstadoCita estado,char delimiter,int hora) {
+	public Cita(Paciente paciente, Medico medico, EstadoCita estado,char delimiter,int hora, String mes ) {
 		super();
 		this.id=generarId();
 		this.paciente = paciente;
@@ -25,6 +26,7 @@ public class Cita {
 		this.estado = estado;
 		this.delimiter=delimiter;
 		this.hora=hora;
+		this.mes=mes;
 	}
 	public Paciente getPaciente() {
 		return paciente;
@@ -57,6 +59,12 @@ public class Cita {
 	public void setHora(int hora) {
 		this.hora = hora;
 	}
+	public String getMes() {
+		return mes;
+	}
+	public void setMes(String mes) {
+		this.mes = mes;
+	}
 	public int getId() {
 		return id;
 	}
@@ -68,7 +76,7 @@ public class Cita {
     }
 	@Override
 	public String toString() {
-		return  id + ""+delimiter + medico.getCodigo() + delimiter + medico.getNombre()+ delimiter +medico.getEspecialidad()+ delimiter +paciente.getIdentificacion()+ delimiter +paciente.getNombre()+ delimiter +paciente.getEnfermedad().getNombreEnfermedad()+delimiter+""+hora+""+delimiter+paciente.activo(paciente.isActivo())+delimiter+estado;
+		return  id + ""+delimiter + medico.getCodigo() + delimiter + medico.getNombre()+ delimiter +medico.getEspecialidad()+ delimiter +paciente.getIdentificacion()+ delimiter +paciente.getNombre()+ delimiter +paciente.getEnfermedad().getNombreEnfermedad()+delimiter+""+hora+""+delimiter+""+mes+""+delimiter+paciente.activo(paciente.isActivo())+delimiter+estado;
 	}
 	
 	

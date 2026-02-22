@@ -1,2 +1,2 @@
 618872,1C32231,Ariel,Neurocirujano,56789012,José,Diabetes,0,activo,ATENDIDA
-189032,C51231,Luis,Cardiologo,12345678,Luis,Tos,9,activo,ATENDIDA
+656966,232322,Juan,pediatra,12345678,Luis,Tos,0,activo,ATENDIDA

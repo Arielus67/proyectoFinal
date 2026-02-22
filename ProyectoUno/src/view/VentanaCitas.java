@@ -65,11 +65,11 @@ public class VentanaCitas extends JFrame {
 		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnBuscar.setBorder(null);
 		btnBuscar.setBackground(Color.WHITE);
-		btnBuscar.setBounds(10, 67, 110, 29);
+		btnBuscar.setBounds(10, 142, 110, 29);
 		panel.add(btnBuscar);
 		
 		txtBuscar = new JTextField();
-		txtBuscar.setBounds(145, 69, 178, 28);
+		txtBuscar.setBounds(148, 144, 178, 28);
 		panel.add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
@@ -84,7 +84,7 @@ public class VentanaCitas extends JFrame {
 		JLabel lblInformacion = new JLabel("Ingrese el codigo de la cita a buscar");
 		lblInformacion.setForeground(new Color(255, 255, 255));
 		lblInformacion.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblInformacion.setBounds(10, 28, 268, 14);
+		lblInformacion.setBounds(10, 118, 268, 14);
 		panel.add(lblInformacion);
 		
 		btnEliminar = new JButton("Eliminar");
@@ -94,6 +94,32 @@ public class VentanaCitas extends JFrame {
 		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnEliminar.setBorder(null);
 		btnEliminar.setBackground(new Color(255, 255, 255));
+		
+		JComboBox cbxMes = new JComboBox();
+		cbxMes.setForeground(new Color(0, 102, 153));
+		cbxMes.setFont(new Font("Tahoma", Font.BOLD, 12));
+		cbxMes.setBackground(new Color(255, 255, 255));
+		cbxMes.setBounds(69, 10, 110, 29);
+		panel.add(cbxMes);
+		
+		JLabel lblHora = new JLabel("Hora:");
+		lblHora.setBounds(207, 17, 46, 14);
+		panel.add(lblHora);
+		lblHora.setForeground(new Color(255, 255, 255));
+		lblHora.setFont(new Font("Tahoma", Font.BOLD, 13));
+		
+		cbxHorasDisponibles = new JComboBox();
+		cbxHorasDisponibles.setBounds(255, 10, 110, 29);
+		panel.add(cbxHorasDisponibles);
+		cbxHorasDisponibles.setForeground(new Color(0, 102, 153));
+		cbxHorasDisponibles.setFont(new Font("Tahoma", Font.BOLD, 12));
+		cbxHorasDisponibles.setBackground(new Color(255, 255, 255));
+		
+		JLabel lblMes = new JLabel("Mes:");
+		lblMes.setForeground(Color.WHITE);
+		lblMes.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblMes.setBounds(13, 19, 46, 14);
+		panel.add(lblMes);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
@@ -173,22 +199,18 @@ public class VentanaCitas extends JFrame {
 		cbxEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
 		cbxEstado.setForeground(new Color(255, 255, 255));
 		cbxEstado.setBackground(new Color(0, 102, 152));
-		cbxEstado.setBounds(157, 23, 110, 29);
+		cbxEstado.setBounds(309, 23, 110, 29);
 		panel_4.add(cbxEstado);
 		
 		cbxEstado.addItem("Atendida");
 		cbxEstado.addItem("Pendiente");
 		cbxEstado.addItem("Cancelada");
 		
-		JLabel lblHora = new JLabel("Hora:");
-		lblHora.setForeground(new Color(0, 102, 153));
-		lblHora.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblHora.setBounds(317, 30, 46, 14);
-		panel_4.add(lblHora);
-		
-		cbxHorasDisponibles = new JComboBox();
-		cbxHorasDisponibles.setBounds(373, 27, 110, 22);
-		panel_4.add(cbxHorasDisponibles);
+		JLabel lblEstadoCita = new JLabel("Estado cita:");
+		lblEstadoCita.setForeground(new Color(0, 102, 153));
+		lblEstadoCita.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblEstadoCita.setBounds(207, 30, 110, 14);
+		panel_4.add(lblEstadoCita);
 
 	}
 	public void init() {
