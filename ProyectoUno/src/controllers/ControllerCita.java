@@ -151,6 +151,7 @@ public class ControllerCita {
 			String idBuscar = vc.txtBuscar.getText();
 
 			if (idBuscar == null || idBuscar.isEmpty()) {
+				loadTableCitas();
 				return;
 			}
 
@@ -208,7 +209,7 @@ public class ControllerCita {
 			int edadMedico = Integer.parseInt(modelMedicos.getValueAt(rowMedico, 2).toString());
 			char sexoMedico = modelMedicos.getValueAt(rowMedico, 3).toString().charAt(0);
 			String especialidad = modelMedicos.getValueAt(rowMedico, 4).toString();
-
+			
 			String identificacion = modelPacientes.getValueAt(rowPaciente, 0).toString();
 			String nombrePaciente = modelPacientes.getValueAt(rowPaciente, 1).toString();
 			int edadPaciente = Integer.parseInt(modelPacientes.getValueAt(rowPaciente, 2).toString());
@@ -219,7 +220,16 @@ public class ControllerCita {
 
 			String estadoTexto = vc.cbxEstado.getSelectedItem().toString();
 			EstadoCita estado = EstadoCita.valueOf(estadoTexto.toUpperCase());
+			
+			int horas = Integer.parseInt(vc.cbxHorasDisponibles.getSelectedItem().toString());
 
+			
+			
+			if(archivoCitas.dontRepeatCita(codigoMedico, horas)) {
+				JOptionPane.showMessageDialog(null, "Ya este medico tiene esa hora asignada");
+				return;
+			}
+			
 			Enfermedad en = new Enfermedad(enfermedad, gravedad, DELIMITER);
 			Paciente p = new Paciente(identificacion, nombrePaciente, edadPaciente, sexoPaciente, telefonoPaciente, en,
 					true, DELIMITER);
@@ -227,7 +237,8 @@ public class ControllerCita {
 			Medico m = new Medico(codigoMedico, nombreMedico, edadMedico, sexoMedico, especialidad, DELIMITER);
 
 			Cita nuevaCita = new Cita(p, m, estado, DELIMITER);
-
+			nuevaCita.setHora(horas);
+			
 			archivoCitas.update(id, nuevaCita.toString());
 
 			JOptionPane.showMessageDialog(null, "Cita modificada correctamente");

@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 12345678,Luis,20,M,8712628345,Tos,3
 23456789,Ana,25,F,34432,Fiebre,2,inactivo
+=======
+23456789,Ana,25,F,8823456712,Fiebre,2
+>>>>>>> branch 'main' of https://github.com/Arielus67/proyectoFinal.git
 34567890,Carlos,30,M,8734567890,Gripe,4
 45678901,María,18,F,8845671234,Dolor de cabeza,1
 56789012,José,40,M,8756782345,Diabetes,5
