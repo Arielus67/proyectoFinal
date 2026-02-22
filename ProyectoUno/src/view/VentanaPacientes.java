@@ -193,7 +193,7 @@ public class VentanaPacientes extends JFrame {
 		panel_1_2.setLayout(null);
 		table = new JTable(modelo);
 		JScrollPane scroll = new JScrollPane(table);
-		scroll.setBounds(10, 11, 540, 216);
+		scroll.setBounds(10, 11, 519, 216);
 
 		panel_1_2.add(scroll);
 

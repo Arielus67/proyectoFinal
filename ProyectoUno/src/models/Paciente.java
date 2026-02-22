@@ -9,6 +9,12 @@ public class Paciente extends Persona {
 	
 	public Paciente() {
 	}
+	public Paciente(String identificacion, String nombre, int edad,char sexo, String contacto, boolean activo,char delimiter) {
+		super(nombre, edad, sexo, delimiter);
+		this.identificacion = identificacion;
+		this.contacto = contacto;
+		this.activo=activo;
+	}
 	public Paciente(String identificacion, String nombre, int edad,char sexo, String contacto, Enfermedad enfermedad, boolean activo,char delimiter) {
 		super(nombre, edad, sexo, delimiter);
 		this.identificacion = identificacion;

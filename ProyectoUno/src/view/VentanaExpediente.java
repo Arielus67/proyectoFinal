@@ -83,7 +83,7 @@ public class VentanaExpediente extends JFrame {
 		panel.add(lblDiagnsticosYObservaciones);
 		
 		JTextArea txtDiagnostico = new JTextArea();
-		txtDiagnostico.setBounds(20, 166, 331, 296);
+		txtDiagnostico.setBounds(20, 166, 331, 272);
 		panel.add(txtDiagnostico);
 		
 		JLabel iblInformacion = new JLabel("Ingrese la idenficicacion del paciente para ver el expediente");

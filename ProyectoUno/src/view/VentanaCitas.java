@@ -36,6 +36,7 @@ public class VentanaCitas extends JFrame {
 	public JButton btnModificar;
 	public JComboBox cbxEstado;
 	public JComboBox cbxHorasDisponibles;
+	public JComboBox cbxMes;
 
 	public VentanaCitas() {
 		setBackground(Color.LIGHT_GRAY);
@@ -95,7 +96,7 @@ public class VentanaCitas extends JFrame {
 		btnEliminar.setBorder(null);
 		btnEliminar.setBackground(new Color(255, 255, 255));
 		
-		JComboBox cbxMes = new JComboBox();
+		cbxMes = new JComboBox();
 		cbxMes.setForeground(new Color(0, 102, 153));
 		cbxMes.setFont(new Font("Tahoma", Font.BOLD, 12));
 		cbxMes.setBackground(new Color(255, 255, 255));
@@ -134,7 +135,7 @@ public class VentanaCitas extends JFrame {
 		lblPacientes.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 36, 589, 273);
+		scrollPane_1.setBounds(0, 36, 531, 273);
 		panel_1.add(scrollPane_1);
 		
 		modeloPacientes = new DefaultTableModel();

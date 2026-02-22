@@ -1,24 +1,20 @@
-<<<<<<< HEAD
-12345678,Luis,20,M,8712628345,Tos,3
-23456789,Ana,25,F,34432,Fiebre,2,inactivo
-=======
-23456789,Ana,25,F,8823456712,Fiebre,2
->>>>>>> branch 'main' of https://github.com/Arielus67/proyectoFinal.git
-34567890,Carlos,30,M,8734567890,Gripe,4
-45678901,María,18,F,8845671234,Dolor de cabeza,1
-56789012,José,40,M,8756782345,Diabetes,5
-67890123,Sofía,35,F,8867893456,Asma,3,inactivo
-78901234,Pedro,50,M,8778904567,Presión alta,4
-89012345,Laura,28,F,8889015678,Alergia,2
-90123456,Andrés,22,M,8890126789,Fractura,5,inactivo
-11223344,Valeria,31,F,8711234567,Infección,3
-22334455,Diego,45,M,8722345678,Colesterol alto,4
-33445566,Paula,27,F,8733456789,Anemia,2
-44556677,Raúl,60,M,8744567890,Artritis,5
-55667788,Daniela,19,F,8755678901,Tos,1
-66778899,Esteban,33,M,8766789012,Gastritis,3
-77889900,Natalia,29,F,8777890123,Migraña,2
-88990011,Fernando,55,M,8788901234,Problema cardíaco,5
-99001122,Lucía,24,F,8799012345,Infección urinaria,3
-10111213,Oscar,38,M,8800123456,Neumonía,4
-12131415,Elena,42,F,8811234567,Hipotiroidismo,2
+119690069,Carlos,45,M,88887777,Diabetes,2,activo
+119690070,Mariana,32,F,81112233,Asma,1,activo
+119690071,Jose,60,M,89998888,Hipertension,3,inactivo
+119690072,Laura,27,F,85554444,Migraña,1,activo
+119690073,Andres,50,M,82223344,Artritis,2,activo
+119690074,Sofia,18,F,84445566,Gastritis,1,activo
+119690075,Daniel,39,M,87776655,Colitis,2,inactivo
+119690076,Paula,41,F,86665544,Diabetes,3,activo
+119690077,Ricardo,55,M,83334455,Hipertension,2,activo
+119690078,Valeria,22,F,89991122,Asma,1,inactivo
+119690079,Diego,36,M,81119999,Gripe,1,activo
+119690080,Monica,48,F,82221111,Artrosis,2,activo
+119690081,Fernando,52,M,84443333,Colesterol,2,activo
+119690082,Ana,30,F,85556666,Anemia,1,inactivo
+119690083,Roberto,63,M,86667777,Cardiopatia,3,activo
+119690084,Camila,25,F,87778888,Alergia,1,activo
+119690085,Jorge,57,M,88889999,Diabetes,2,inactivo
+119690086,Natalia,34,F,89990000,Gastritis,1,activo
+119690087,Mario,46,M,81113333,Hipertension,3,activo
+119690088,Daniela,29,F,82224444,Migraña,1,activo

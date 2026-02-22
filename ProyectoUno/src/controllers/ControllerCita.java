@@ -41,6 +41,7 @@ public class ControllerCita {
 		updateAvailableDoctors();
 		loadTablePacientes();
 		loadCbxCitas();
+		loadCbxMeses();
 
 	}
 
@@ -93,7 +94,7 @@ public class ControllerCita {
 			EstadoCita estado = EstadoCita.valueOf(estadoTexto.toUpperCase());
 			
 			int horas = Integer.parseInt(vc.cbxHorasDisponibles.getSelectedItem().toString());
-
+			String mes = vc.cbxMes.getSelectedItem().toString();
 			
 			
 			if(archivoCitas.dontRepeatCita(codigoMedico, horas)) {
@@ -110,7 +111,7 @@ public class ControllerCita {
 
 			Cita cita = new Cita(p, m, estado, DELIMITER);
 			cita.setHora(horas);
-			
+			cita.setMes(mes);
 			archivoCitas.add(cita.toString());
 
 			JOptionPane.showMessageDialog(null, "Cita creada correctamente");
@@ -222,7 +223,7 @@ public class ControllerCita {
 			EstadoCita estado = EstadoCita.valueOf(estadoTexto.toUpperCase());
 			
 			int horas = Integer.parseInt(vc.cbxHorasDisponibles.getSelectedItem().toString());
-
+			String mes = vc.cbxMes.getSelectedItem().toString();
 			
 			
 			if(archivoCitas.dontRepeatCita(codigoMedico, horas)) {
@@ -264,6 +265,7 @@ public class ControllerCita {
 		modelCitas.addColumn("Nombre");
 		modelCitas.addColumn("Enfermedad");
 		modelCitas.addColumn("Hora");
+		modelCitas.addColumn("Mes");
 		modelCitas.addColumn("Activo");
 		modelCitas.addColumn("Estado");
 
@@ -436,5 +438,17 @@ public class ControllerCita {
 			updateAvailableDoctors();
 		});
 	}
-
+	private void loadCbxMeses() {
+		vc.cbxMes.addItem("Enero");
+		vc.cbxMes.addItem("Febrero");
+		vc.cbxMes.addItem("Marzo");
+		vc.cbxMes.addItem("Abril");
+		vc.cbxMes.addItem("Mayo");
+		vc.cbxMes.addItem("Junio");
+		vc.cbxMes.addItem("Julio");
+		vc.cbxMes.addItem("Septiembre");
+		vc.cbxMes.addItem("Octubre");
+		vc.cbxMes.addItem("Noviembre");
+		vc.cbxMes.addItem("Diciembre");
+	}
 }

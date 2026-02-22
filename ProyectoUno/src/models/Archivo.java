@@ -115,6 +115,7 @@ public class Archivo {
 
 		id = id.trim();
 		String horas = hora+"";
+		
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
 			String linea;
