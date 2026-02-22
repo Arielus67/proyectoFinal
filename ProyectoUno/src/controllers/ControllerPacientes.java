@@ -1,5 +1,7 @@
 package controllers;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
@@ -25,6 +27,7 @@ public class ControllerPacientes {
 		funciones();
 		initTable();
 		loadTable();
+		
 	}
 
 	public void start() {
@@ -60,6 +63,13 @@ public class ControllerPacientes {
 		vp.btnEliminar.addActionListener(e -> delete());
 
 		vp.btnConsultar.addActionListener(e -> search());
+		
+		vp.table.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        cargarDatosSeleccionados();
+		    }
+		});
 	}
 
 	private void create() {
@@ -145,30 +155,63 @@ public class ControllerPacientes {
 		}
 	}
 
+	private void cargarDatosSeleccionados() {
+
+	    int fila = vp.table.getSelectedRow();
+
+	    if (fila == -1) {
+	        return;
+	    }
+
+	    vp.txtIdentificacion.setText(vp.table.getValueAt(fila, 0).toString());
+	    vp.txtNombre.setText(vp.table.getValueAt(fila, 1).toString());
+	    vp.txtEdad.setText(vp.table.getValueAt(fila, 2).toString());
+	    vp.txtContacto.setText(vp.table.getValueAt(fila, 4).toString());
+
+	    String genero = vp.table.getValueAt(fila, 3).toString();
+	    if (genero.equals("M")) {
+	        vp.rdbtnMasculino.setSelected(true);
+	    } else {
+	        vp.rdbtnFemenino.setSelected(true);
+	    }
+
+	    vp.txtAreaEnfermedad.setText(vp.table.getValueAt(fila, 5).toString());
+	    vp.comboBox.setSelectedItem(Integer.parseInt(vp.table.getValueAt(fila, 6).toString()));
+	}
+	
 	private void edit() {
-		try {
+	    try {
 
-			
-			String identificacion = vp.txtIdentificacion.getText();		
-			String nombre = vp.txtNombre.getText();
-			int edad = Integer.parseInt(vp.txtEdad.getText());
-			String contacto = vp.txtContacto.getText();
-			char genero = vp.rdbtnMasculino.isSelected() ? "Masculino".charAt(0) : "Femenino".charAt(0);
-			String enfermedad = vp.txtAreaEnfermedad.getText();
-			int gravedad = (int)(vp.comboBox.getSelectedItem());
-			
-			Enfermedad en = new Enfermedad(enfermedad, gravedad,DELIMITER);
-			Paciente paciente = new Paciente(identificacion, nombre, edad, genero, contacto, en, false,DELIMITER);
+	        int fila = vp.table.getSelectedRow();
 
-			archivo.update(identificacion, paciente.toString());
+	        if (fila == -1) {
+	            JOptionPane.showMessageDialog(null, "Seleccione un paciente de la tabla");
+	            return;
+	        }
 
-			JOptionPane.showMessageDialog(null, "Paciente actualizado");
+	        String identificacion = vp.txtIdentificacion.getText();
+	        String nombre = vp.txtNombre.getText();
+	        int edad = Integer.parseInt(vp.txtEdad.getText());
+	        String contacto = vp.txtContacto.getText();
 
-			loadTable();
+	        char genero = vp.rdbtnMasculino.isSelected() ? 'M' : 'F';
 
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al editar al paciente " + e);
-		}
+	        String enfermedad = vp.txtAreaEnfermedad.getText();
+	        int gravedad = Integer.parseInt(vp.comboBox.getSelectedItem().toString());
+
+	        Enfermedad en = new Enfermedad(enfermedad, gravedad, DELIMITER);
+	        Paciente paciente = new Paciente(identificacion, nombre, edad, genero, contacto, en, false, DELIMITER);
+
+	        archivo.update(identificacion, paciente.toString());
+
+	        JOptionPane.showMessageDialog(null, "Paciente actualizado correctamente");
+
+	        loadTable();
+	        clear();
+
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Error al editar: " + e.getMessage());
+	    }
 	}
 
 	private void clear() {

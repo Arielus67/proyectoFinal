@@ -1,5 +1,7 @@
 package controllers;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.JComboBox;
@@ -61,6 +63,13 @@ public class ControllerMedicos {
 		vm.btnEliminar.addActionListener(e -> delete());
 
 		vm.btnConsultar.addActionListener(e -> search());
+		
+		vm.table.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        cargarDatosSeleccionados();
+		    }
+		});
 	}
 
 	private void create() {
@@ -160,32 +169,88 @@ public class ControllerMedicos {
 			JOptionPane.showMessageDialog(null, "Error al buscar al medico " + e);
 		}
 	}
+	
+	
+	private void marcarDias(String dias) {
+
+	    vm.chckbxLunes.setSelected(false);
+	    vm.chckbxMartess.setSelected(false);
+	    vm.chckbxMiercoles.setSelected(false);
+	    vm.chckbxJueves.setSelected(false);
+	    vm.chckbxViernes.setSelected(false);
+	    vm.chckbxSabado.setSelected(false);
+	    vm.chckbxDomingo.setSelected(false);
+
+	    if (dias.contains("Lunes")) vm.chckbxLunes.setSelected(true);
+	    if (dias.contains("Martes")) vm.chckbxMartess.setSelected(true);
+	    if (dias.contains("Miercoles")) vm.chckbxMiercoles.setSelected(true);
+	    if (dias.contains("Jueves")) vm.chckbxJueves.setSelected(true);
+	    if (dias.contains("Viernes")) vm.chckbxViernes.setSelected(true);
+	    if (dias.contains("Sabado")) vm.chckbxSabado.setSelected(true);
+	    if (dias.contains("Domingo")) vm.chckbxDomingo.setSelected(true);
+	}
+	
+	private void cargarDatosSeleccionados() {
+
+	    int fila = vm.table.getSelectedRow();
+
+	    if (fila == -1) {
+	        return;
+	    }
+
+	    vm.txtCodigo.setText(vm.table.getValueAt(fila, 0).toString());
+	    vm.txtNombre.setText(vm.table.getValueAt(fila, 1).toString());
+	    vm.txtEdad.setText(vm.table.getValueAt(fila, 2).toString());
+
+	    String genero = vm.table.getValueAt(fila, 3).toString();
+	    if (genero.equals("M")) {
+	        vm.rdbtnMasculino.setSelected(true);
+	    } else {
+	        vm.rdbtnFemenino.setSelected(true);
+	    }
+
+	    vm.txtEspecialidad.setText(vm.table.getValueAt(fila, 4).toString());
+	    String dias = vm.table.getValueAt(fila, 5).toString();
+	    marcarDias(dias);
+	    vm.txtDesde.setText(vm.table.getValueAt(fila, 6).toString());
+	    vm.txtHasta.setText(vm.table.getValueAt(fila, 7).toString());
+
+	    
+	}
+	
 	private void edit() {
-		try {
+	    try {
 
-			
-			String codigo = vm.txtCodigo.getText();		
-			String nombre = vm.txtNombre.getText();
-			int edad = Integer.parseInt(vm.txtEdad.getText());
-			char genero = vm.rdbtnMasculino.isSelected() ? "Masculino".charAt(0) : "Femenino".charAt(0);
-			String especialidad = vm.txtEspecialidad.getText();
-			int desde = Integer.parseInt(vm.txtDesde.getText());
-			int hasta = Integer.parseInt(vm.txtHasta.getText());
-			String dias = getDiasSeleccionados();
-			
-			Dia dia = new Dia(dias, desde, hasta, DELIMITER);
-			Horario h = new Horario(dia, DELIMITER);
-			Medico m = new Medico(codigo, nombre, edad, genero, especialidad, h ,DELIMITER);
+	        int fila = vm.table.getSelectedRow();
 
-			archivo.update(codigo, m.toString());
+	        if (fila == -1) {
+	            JOptionPane.showMessageDialog(null, "Seleccione un médico de la tabla");
+	            return;
+	        }
 
-			JOptionPane.showMessageDialog(null, "Medico actualizado");
+	        String codigo = vm.txtCodigo.getText();
+	        String nombre = vm.txtNombre.getText();
+	        int edad = Integer.parseInt(vm.txtEdad.getText());
+	        char genero = vm.rdbtnMasculino.isSelected() ? 'M' : 'F';
+	        String especialidad = vm.txtEspecialidad.getText();
+	        int desde = Integer.parseInt(vm.txtDesde.getText());
+	        int hasta = Integer.parseInt(vm.txtHasta.getText());
+	        String dias = getDiasSeleccionados();
 
-			loadTable();
+	        Dia dia = new Dia(dias, desde, hasta, DELIMITER);
+	        Horario h = new Horario(dia, DELIMITER);
+	        Medico m = new Medico(codigo, nombre, edad, genero, especialidad, h, DELIMITER);
 
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al editar al Medico " + e);
-		}
+	        archivo.update(codigo, m.toString());
+
+	        JOptionPane.showMessageDialog(null, "Médico actualizado correctamente");
+
+	        loadTable();
+
+	        clear();
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Error al editar al médico: " + e.getMessage());
+	    }
 	}
 	private void clear() {
 		vm.txtNombre.setText("");
