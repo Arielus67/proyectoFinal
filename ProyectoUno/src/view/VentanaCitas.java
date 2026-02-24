@@ -37,6 +37,7 @@ public class VentanaCitas extends JFrame {
 	public JComboBox cbxEstado;
 	public JComboBox cbxHorasDisponibles;
 	public JComboBox cbxMes;
+	public JComboBox cbxDia;
 
 	public VentanaCitas() {
 		setBackground(Color.LIGHT_GRAY);
@@ -100,17 +101,17 @@ public class VentanaCitas extends JFrame {
 		cbxMes.setForeground(new Color(0, 102, 153));
 		cbxMes.setFont(new Font("Tahoma", Font.BOLD, 12));
 		cbxMes.setBackground(new Color(255, 255, 255));
-		cbxMes.setBounds(69, 10, 110, 29);
+		cbxMes.setBounds(53, 17, 68, 22);
 		panel.add(cbxMes);
 		
 		JLabel lblHora = new JLabel("Hora:");
-		lblHora.setBounds(207, 17, 46, 14);
+		lblHora.setBounds(280, 21, 46, 14);
 		panel.add(lblHora);
 		lblHora.setForeground(new Color(255, 255, 255));
 		lblHora.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		cbxHorasDisponibles = new JComboBox();
-		cbxHorasDisponibles.setBounds(255, 10, 110, 29);
+		cbxHorasDisponibles.setBounds(319, 21, 46, 18);
 		panel.add(cbxHorasDisponibles);
 		cbxHorasDisponibles.setForeground(new Color(0, 102, 153));
 		cbxHorasDisponibles.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -121,6 +122,19 @@ public class VentanaCitas extends JFrame {
 		lblMes.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblMes.setBounds(13, 19, 46, 14);
 		panel.add(lblMes);
+		
+		JLabel lblDia = new JLabel("Dia:");
+		lblDia.setForeground(Color.WHITE);
+		lblDia.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblDia.setBounds(135, 22, 46, 14);
+		panel.add(lblDia);
+		
+		cbxDia = new JComboBox();
+		cbxDia.setForeground(new Color(0, 102, 153));
+		cbxDia.setFont(new Font("Tahoma", Font.BOLD, 12));
+		cbxDia.setBackground(Color.WHITE);
+		cbxDia.setBounds(177, 18, 68, 22);
+		panel.add(cbxDia);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);

@@ -1,7 +1,10 @@
-402001,C51232,Andrea,Pediatra,119690069,Carlos,Diabetes,1,Enero,activo,ATENDIDA
-710018,C51236,Sofia,Ginecologo,119690074,Sofia,Gastritis,1,Febrero,activo,ATENDIDA
-309262,C51237,Ricardo,Oncologo,119690072,Laura,Migraña,6,Enero,activo,CANCELADA
-220785,C51232,Andrea,Pediatra,119690074,Sofia,Gastritis,20,Enero,activo,ATENDIDA
-383848,C51232,Andrea,Pediatra,119690074,Sofia,Gastritis,21,Enero,activo,ATENDIDA
-986926,C51232,Andrea,Pediatra,119690074,Sofia,Gastritis,18,Enero,activo,ATENDIDA
-395237,C51238,Valeria,Endocrinologo,119690074,Sofia,Gastritis,18,Enero,activo,ATENDIDA
+454108,C51232,Andrea,Pediatra,119690069,Carlos,Diabetes,1,Lunes,Enero,activo,ATENDIDA
+469233,C51232,Andrea,Pediatra,119690069,Carlos,Diabetes,1,Miercoles,Enero,activo,ATENDIDA
+428018,C51232,Andrea,Pediatra,119690069,Carlos,Diabetes,1,Viernes,Enero,activo,ATENDIDA
+732815,C51232,Andrea,Pediatra,119690069,Carlos,Diabetes,1,Martes,Enero,activo,ATENDIDA
+291816,C51232,Andrea,Pediatra,119690069,Carlos,Diabetes,1,Jueves,Enero,activo,ATENDIDA
+547692,C51235,Jorge,Traumatologo,119690069,Carlos,Diabetes,1,Lunes,Enero,activo,ATENDIDA
+767251,C51239,Diego,Urologo,119690070,Mariana,Asma,1,Lunes,Enero,activo,ATENDIDA
+808017,C51251,Ramon,Cirujano,119690069,Carlos,Diabetes,1,Lunes,Enero,activo,ATENDIDA
+768561,C51240,Paula,Cardiologo,119690072,Laura,Migraña,1,Lunes,Enero,activo,ATENDIDA
+716620,C51237,Ricardo,Oncologo,119690074,Sofia,Gastritis,1,Lunes,Enero,activo,ATENDIDA
