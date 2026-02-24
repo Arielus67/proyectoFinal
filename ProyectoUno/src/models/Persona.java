@@ -44,6 +44,4 @@ public class Persona {
 	public String toString() {
 		return nombre +delimiter+ edad +delimiter + sexo +delimiter ;
 	}
-
-	
 }

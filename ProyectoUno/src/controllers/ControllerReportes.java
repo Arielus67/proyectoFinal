@@ -334,6 +334,7 @@ public class ControllerReportes {
 
 			String[] lines = data.split("\n");
 
+			boolean encontrado = false;
 			for (String line : lines) {
 
 				String[] values = line.split(",");
@@ -345,6 +346,13 @@ public class ControllerReportes {
 					}
 				}
 			}
+			
+			if (!encontrado) {
+	            JOptionPane.showMessageDialog(null, 
+	                "El expediente no está disponible o no existe el expediente",
+	                "Búsqueda",
+	                JOptionPane.INFORMATION_MESSAGE);
+	        }
 
 		} catch (IOException e) {
 			e.printStackTrace();
