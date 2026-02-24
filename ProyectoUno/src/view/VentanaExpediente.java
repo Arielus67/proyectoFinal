@@ -31,6 +31,8 @@ public class VentanaExpediente extends JFrame {
 	public JButton btnConsultar;
 	public JTextField txtConsultar;
 	public JButton btnGuardar;
+	public JButton btnDiagnosticos;
+	public JTextArea txtDiagnostico;
 
 	public VentanaExpediente() {
 		setBackground(Color.LIGHT_GRAY);
@@ -82,7 +84,7 @@ public class VentanaExpediente extends JFrame {
 		lblDiagnsticosYObservaciones.setBounds(10, 123, 297, 44);
 		panel.add(lblDiagnsticosYObservaciones);
 		
-		JTextArea txtDiagnostico = new JTextArea();
+		txtDiagnostico = new JTextArea();
 		txtDiagnostico.setBounds(20, 166, 331, 272);
 		panel.add(txtDiagnostico);
 		
@@ -91,6 +93,14 @@ public class VentanaExpediente extends JFrame {
 		iblInformacion.setFont(new Font("Tahoma", Font.BOLD, 12));
 		iblInformacion.setBounds(10, 10, 365, 44);
 		panel.add(iblInformacion);
+		
+		btnDiagnosticos = new JButton("Diagnosticos");
+		btnDiagnosticos.setForeground(new Color(0, 102, 153));
+		btnDiagnosticos.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnDiagnosticos.setBorder(null);
+		btnDiagnosticos.setBackground(Color.WHITE);
+		btnDiagnosticos.setBounds(20, 99, 110, 29);
+		panel.add(btnDiagnosticos);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
