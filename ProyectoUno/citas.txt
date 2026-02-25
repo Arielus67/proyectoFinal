@@ -3,8 +3,19 @@
 428018,C51232,Andrea,Pediatra,119690069,Carlos,Diabetes,1,Viernes,Enero,activo,ATENDIDA
 732815,C51232,Andrea,Pediatra,119690069,Carlos,Diabetes,1,Martes,Enero,activo,ATENDIDA
 291816,C51232,Andrea,Pediatra,119690069,Carlos,Diabetes,1,Jueves,Enero,activo,ATENDIDA
-547692,C51235,Jorge,Traumatologo,119690069,Carlos,Diabetes,1,Lunes,Enero,activo,ATENDIDA
 767251,C51239,Diego,Urologo,119690070,Mariana,Asma,1,Lunes,Enero,activo,ATENDIDA
 808017,C51251,Ramon,Cirujano,119690069,Carlos,Diabetes,1,Lunes,Enero,activo,ATENDIDA
 768561,C51240,Paula,Cardiologo,119690072,Laura,Migraña,1,Lunes,Enero,activo,ATENDIDA
 716620,C51237,Ricardo,Oncologo,119690074,Sofia,Gastritis,1,Lunes,Enero,activo,ATENDIDA
+537722,C51241,Fernando,Neumologo,119690075,Daniel,Colitis,10,Martes,Marzo,activo,ATENDIDA
+286980,C51241,Fernando,Neumologo,119690075,Daniel,Colitis,1,Martes,Marzo,activo,ATENDIDA
+945186,C51250,Ana,MedicoGeneral,119690077,Ricardo,Hipertension,7,Viernes,Julio,activo,ATENDIDA
+442376,C51250,Ana,MedicoGeneral,119690076,Paula,Diabetes,1,Jueves,Junio,activo,ATENDIDA
+754007,C51248,Daniela,Genetista,119690081,Fernando,Colesterol,12,Lunes,Septiembre,activo,CANCELADA
+652527,C51250,Ana,MedicoGeneral,119690083,Roberto,Cardiopatia,1,Lunes,Enero,activo,PENDIENTE
+809213,C51251,Ramon,Cirujano,119690076,Paula,Diabetes,15,Miercoles,Septiembre,activo,PENDIENTE
+962644,C51250,Ana,MedicoGeneral,119690083,Roberto,Cardiopatia,15,Viernes,Septiembre,activo,CANCELADA
+265204,C51237,Ricardo,Oncologo,119690073,Andres,Artritis,15,Viernes,Octubre,activo,CANCELADA
+557405,C51251,Ramon,Cirujano,119690087,Mario,Hipertension,15,Viernes,Octubre,activo,CANCELADA
+932355,C51249,Jose,Nefrologo,119690078,Valeria,Asma,12,Jueves,Octubre,activo,CANCELADA
+326918,C51233,Carlos,Neurologo,1121122,luis mendes,toss,12,Martes,Diciembre,activo,CANCELADA

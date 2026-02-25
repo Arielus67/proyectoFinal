@@ -255,7 +255,7 @@ public class VentanaMedicos extends JFrame {
 		panel_2.add(lblBuscarMedico);
 
 		JLabel lblNewLabel_1_4 = new JLabel("Buscar: ");
-		lblNewLabel_1_4.setBounds(5, 65, 53, 14);
+		lblNewLabel_1_4.setBounds(20, 64, 53, 14);
 		panel_2.add(lblNewLabel_1_4);
 
 		txtBuscar = new JTextField();

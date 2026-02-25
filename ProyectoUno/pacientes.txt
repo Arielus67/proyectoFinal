@@ -17,4 +17,4 @@
 119690085,Jorge,57,M,88889999,Diabetes,2,inactivo
 119690086,Natalia,34,F,89990000,Gastritis,1,activo
 119690087,Mario,46,M,81113333,Hipertension,3,activo
-119690088,Daniela,29,F,82224444,Migraña,1,activo
+1121122,luis mendes,16,M,283902,toss,2,inactivo

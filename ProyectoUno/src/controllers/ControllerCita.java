@@ -430,70 +430,86 @@ public class ControllerCita {
      * y su disponibilidad horaria.
      */
     private void updateAvailableDoctors() {
-        try {
+		try {
 
-            int horas = 1;
-            modelMedicos.setRowCount(0);
+			modelMedicos.setRowCount(0);
+			int horas = 1;
+			String diaCita= "Lunes";
+			
+			//para traer los archivos al string
+			String dataMedicos = archivoMedicos.getData();
+			String dataCitas = archivoCitas.getData();
+			//si no hay medicos se sale del método
+			if (dataMedicos == null || dataMedicos.isEmpty())
+				return;
+			// separar los médicos en el vector cada , separa un doctor
+			String[] listaMedicos = dataMedicos.split("\n");
 
-            String dataMedicos = archivoMedicos.getData();
-            String dataCitas = archivoCitas.getData();
-            boolean mostrar = false;
+			//cuando el cbx marca alguna hora se seleccionna
+			if ((vc.cbxHorasDisponibles.getSelectedItem() != null)) {
+				horas = Integer.parseInt(vc.cbxHorasDisponibles.getSelectedItem().toString());
+			}
+			
+			if ((vc.cbxDia.getSelectedItem() != null)) {
+				diaCita = vc.cbxDia.getSelectedItem().toString();
+			}
 
-            if (dataMedicos == null || dataMedicos.isEmpty())
-                return;
+			//recorre los doctores
+			for (String line : listaMedicos) {
+				
+				boolean mostrar = false;
+				String[] values = line.split(String.valueOf(DELIMITER));
+				String idDoctor = values[0];
+				String diasdoc[] = values[5].split("-");
 
-            String[] linesMedicos = dataMedicos.split("\n");
+				//validar horarios e que trabaja y quieren la cita
+				if ((horas >= Integer.parseInt(values[6]) && horas <= Integer.parseInt(values[7]))) {
+					for (int i = 0; i < diasdoc.length; i++) {
+						if(diasdoc[i].equalsIgnoreCase(diaCita)) {
+							mostrar = true;
+						}
+					}
 
-            if (!(vc.cbxHorasDisponibles.getSelectedItem() == null)) {
-                horas = Integer.parseInt(vc.cbxHorasDisponibles.getSelectedItem().toString());
-            }
-            for (String line : linesMedicos) {
-                String[] values = line.split(String.valueOf(DELIMITER));
-                String idDoctor = values[0];
-                if (dataCitas == null || dataCitas.isEmpty()) {
-                    if ((horas >= Integer.parseInt(values[6]) && horas <= Integer.parseInt(values[7]))) {
+				} else if (Integer.parseInt(values[6]) > Integer.parseInt(values[7])) {
+					if (horas >= Integer.parseInt(values[6]) || (horas >= Integer.parseInt(values[6]) && horas >= 24)
+							|| horas == 1) {
+						for (int i = 0; i < diasdoc.length; i++) {
+							if(diasdoc[i].equalsIgnoreCase(diaCita)) {
+								mostrar = true;
+							}
+						}
 
-                        modelMedicos.addRow(values);
-                    } else if (Integer.parseInt(values[6]) > Integer.parseInt(values[7])) {
-                        if (horas >= Integer.parseInt(values[6])
-                                || (horas >= Integer.parseInt(values[6]) && horas >= 24) || horas == 1) {
-                            modelMedicos.addRow(values);
-                        }
-                    }
+					}
 
-                } else {
-                    String[] linesCitas = dataCitas.split("\n");
-                    for (String citas : linesCitas) {
-                        String[] valuesCitas = citas.split(String.valueOf(DELIMITER));
+				}
+				//Si existe una cita entra en el if
+				if (dataCitas != null || !dataCitas.isEmpty()) {
 
-                        if ((horas >= Integer.parseInt(values[6]) && horas <= Integer.parseInt(values[7]))) {
-                            if (!idDoctor.equals(valuesCitas[2])) {
-                                mostrar = true;
-                                break;
-                            }
+					String[] listaCitas = dataCitas.split("\n");
+					//Recorrer la lista citas
+					for (String citas : listaCitas) {
+						String[] valuesCitas = citas.split(String.valueOf(DELIMITER));
+						//si ya el doctor está en una cita en la hora solicitada no aparece para seleccionar
+						if (idDoctor.equals(valuesCitas[1]) && horas == Integer.parseInt(valuesCitas[7])) {
+							for (int i = 0; i < diasdoc.length; i++) {
+								if(valuesCitas[i].equalsIgnoreCase(diaCita)) {
+									mostrar = false;
+								}
+							}
+						}
+					}
+				}
+				// si el medico está en horario disponible y no tiene cita a esa hora lo mmuestra en la tabla para seleccionar
+				if (mostrar) {
+					modelMedicos.addRow(values);
+				}
 
-                        } else if (Integer.parseInt(values[6]) > Integer.parseInt(values[7])) {
-                            if (horas >= Integer.parseInt(values[6])
-                                    || (horas >= Integer.parseInt(values[6]) && horas >= 24) || horas == 1) {
-                                if (!idDoctor.equals(valuesCitas[2])) {
-                                    mostrar = true;
-                                    break;
-                                }
-                            }
-                        }
+			}
 
-                    }
-                    if (mostrar) {
-                        modelMedicos.addRow(values);
-                    }
-                }
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
     /**
      * Carga las horas disponibles (1-24) en el combo box correspondiente
@@ -519,6 +535,10 @@ public class ControllerCita {
         vc.cbxDia.addItem("Viernes");
         vc.cbxDia.addItem("Sabado");
         vc.cbxDia.addItem("Domingo");
+        
+        vc.cbxDia.addActionListener(e -> {
+            updateAvailableDoctors();
+        });
     }
 
     /**
